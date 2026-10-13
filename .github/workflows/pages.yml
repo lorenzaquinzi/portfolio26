@@ -1,0 +1,54 @@
+# Publishes the site to GitHub Pages, and refreshes the Spotify "now playing"
+# data (now-playing.json) every ~5 minutes by redeploying.
+#
+# One-time setup is in README.md → "Now Playing (Spotify)".
+
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "*/5 * * * *"   # GitHub may run this late; expect 5–15 min in practice
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble the site (only what should be public)
+        run: |
+          mkdir _site
+          cp *.html styles.css hero.css script.js hero.js _site/
+          cp -r assets _site/
+          touch _site/.nojekyll
+
+      - name: Fetch Spotify now-playing
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+        run: node .github/scripts/fetch-now-playing.mjs _site/now-playing.json
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
