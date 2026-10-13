@@ -88,17 +88,30 @@ What to expect:
 
 2. **Authorize it once to get a refresh token.** This is the only manual
    step — it proves to Spotify that *you* are allowing this app to read
-   *your* currently-playing track.
-   - Visit this URL in your browser, replacing `YOUR_CLIENT_ID`:
+   *your* currently-playing track. The easy way is the helper script
+   (Node 18+, no installs). In Terminal, from this folder:
+   ```
+   export SPOTIFY_CLIENT_ID="paste-your-client-id"
+   ```
+   ```
+   read -s "SPOTIFY_CLIENT_SECRET?Client secret: " && export SPOTIFY_CLIENT_SECRET
+   ```
+   ```
+   node scripts/spotify-token.mjs
+   ```
+   It opens Spotify's consent page; click **Agree**. The terminal then prints
+   your **refresh token** (it doesn't expire under normal use). The client
+   secret is only read from the environment — never printed or saved.
+
+   <details><summary>Doing it by hand instead</summary>
+
+   - Visit this URL, replacing `YOUR_CLIENT_ID`:
      ```
      https://accounts.spotify.com/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=http://127.0.0.1:8888/callback&scope=user-read-currently-playing%20user-read-recently-played
      ```
-   - Log in and click **Agree**. You'll land on a `127.0.0.1` page that
-     fails to load — that's expected. Copy the `code=...` value from the
-     browser's address bar.
-   - Exchange that code for a refresh token (run in a terminal, replacing
-     the placeholders — `CLIENT_ID:CLIENT_SECRET` gets base64-encoded by
-     the `-u` flag automatically):
+   - Click **Agree**. You'll land on a `127.0.0.1` page that fails to load —
+     that's expected. Copy the `code=...` value from the address bar.
+   - Exchange it for a refresh token:
      ```
      curl -X POST https://accounts.spotify.com/api/token \
        -u YOUR_CLIENT_ID:YOUR_CLIENT_SECRET \
@@ -106,8 +119,8 @@ What to expect:
        -d code=THE_CODE_YOU_COPIED \
        -d redirect_uri=http://127.0.0.1:8888/callback
      ```
-   - The JSON response includes a `refresh_token` — save it. It does not
-     expire under normal use.
+   - The JSON response includes a `refresh_token`.
+   </details>
 
 3. **Add the three values as GitHub secrets.** In your repo: Settings →
    Secrets and variables → Actions → **New repository secret**, three times:
