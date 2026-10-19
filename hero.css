@@ -125,6 +125,14 @@ body.hero-hide-dot .cursor-dot { opacity: 0 !important; }
   white-space: nowrap;
 }
 .hero .hero__content { transition: opacity 0.3s ease; }
+.hero[data-variant="game"] .hero__title { /* no headline here: the game gets the whole hero (still there for screen readers / SEO) */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 .hero.is-game-dim .hero__content { opacity: 0.14; } /* too short to run above the headline: it becomes a watermark */
 
 /* ---------- Spotify ---------- */
