@@ -1,6 +1,6 @@
 /* =========================================================
    Home hero — layers, switcher and the interaction TEST variants
-   (photo / zine / skate / spotify / dots). See hero.js.
+   (photo / zine / skate / game / spotify / dots). See hero.js.
    Delete the variants you don't keep.
    ========================================================= */
 
@@ -54,7 +54,9 @@
   color: var(--bg);
 }
 @media (max-width: 640px) {
-  .hero-switcher { top: 52px; right: auto; left: var(--gutter); }
+  .hero-switcher { top: 52px; right: auto; left: var(--gutter); max-width: calc(100% - 2 * var(--gutter)); overflow-x: auto; scrollbar-width: none; }
+  .hero-switcher::-webkit-scrollbar { display: none; }
+  .hero-switcher button { padding: 6px 10px; flex: none; }
   .hero { padding-bottom: 56px; }
   .hero__hint { right: auto; left: var(--gutter); bottom: 18px; }
 }
@@ -85,6 +87,45 @@ body.hero-hide-dot .cursor-dot { opacity: 0 !important; }
   45% { transform: translateY(-52px) rotateX(360deg); }
   100% { transform: translateY(0) rotateX(720deg); }
 }
+
+/* ---------- Game ---------- */
+.gm {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  touch-action: pan-y; /* taps jump, vertical swipes still scroll the page */
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.gm:focus-visible { outline: none; }
+.gm__cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.gm__btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  font: 500 14px/1 var(--font-body);
+  cursor: pointer;
+}
+.gm__btn[hidden] { display: none; }
+.gm__btn:hover { opacity: 0.86; }
+.gm__btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+.gm__live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.hero .hero__content { transition: opacity 0.3s ease; }
+.hero.is-game-dim .hero__content { opacity: 0.14; } /* too short to run above the headline: it becomes a watermark */
 
 /* ---------- Spotify ---------- */
 .sp-bg {

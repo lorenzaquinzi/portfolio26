@@ -31,15 +31,17 @@ a GitHub Actions workflow — see **Now Playing (Spotify)** below.
 - The four case-study detail pages have placeholder titles, outcome copy,
   and body text, marked with `[Placeholder]`. Replace with your real
   problem / approach / outcome and metrics.
-- The home page hero is a **test with five interchangeable variants** (all
+- The home page hero is a **test with six interchangeable variants** (all
   placeholders): **Photo** (your photo or GIF in black and white with film
   grain; the cursor is a soft light that brings the colour back), **Zine** (the
   same image as a photocopied halftone; the cursor is a loupe that resolves it
   into fine detail), **Skate** (a free-roaming skateboard that rides the
-  headline's letters as solid terrain when the cursor goes over them), **Spotify** (the hero glows in
+  headline's letters as solid terrain when the cursor goes over them), **Game** (a
+  Chrome-dino-style endless runner: skate down a street and jump the obstacles
+  with space / ↑ / click / tap; press again in the air for a kickflip), **Spotify** (the hero glows in
   your current song's cover colours, with the cover spinning like a record) and
   **Dots** (the original dot field). Switch with the pill in the hero or
-  `?hero=photo|zine|skate|spotify|dots` in the URL. Code: `hero.js` +
+  `?hero=photo|zine|skate|game|spotify|dots` in the URL. Code: `hero.js` +
   `hero.css`. **Photo and Zine read `assets/hero-media.gif`** (or
   `hero-media.jpg`) — until you add one they show a plain gray box. Keep it
   under ~3 MB, roughly 16:9 and at least ~1600 px wide (the hero is wide). When you pick one
