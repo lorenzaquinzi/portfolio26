@@ -12,26 +12,22 @@ a GitHub Actions workflow — see **Now Playing (Spotify)** below.
 **Real / final:**
 - The hero phrase, the About page and the Experience page (roles, dates, places, highlights and the
   10+ years / 5 companies stats) are written from your CV (`Lorenza Quinzi-CV.pdf`, Oct 2026), plus
-  your contact links (LinkedIn, Instagram, email). The About portrait is one of the photo-wall
-  photos (`assets/hero-photos/p22.jpg`) — swap it for a larger one when you have it.
+  your contact links (LinkedIn, Instagram, email). The About portrait is `assets/about/portrait.jpg`.
 - Structure, layout, typography, light/dark toggle, and accessibility basics
   (skip link, focus states, semantic headings, alt text, reduced-motion support).
 
 **Placeholder — needs your input:**
-- The About portrait is a small photo from the photo wall — swap it for a larger one. For any
-  other image, save it in `assets/` and use `<img src="assets/your-file.jpg" alt="…">`
+- The About portrait is `assets/about/portrait.jpg`. For any other image, save it in `assets/` and use `<img src="assets/your-file.jpg" alt="…">`
   (inside `.cs-cover` or `.about-grid__portrait`, `styles.css` already makes it fill the box).
   Always write a real `alt`.
-- The home page's "Selected Work" is a plain list of 8 projects (no thumbnails), all adapted from your Figma
-  presentation: **Address Scanner**, **Dynamic Island**, **Driver Profile**, **Redesign: Edit
-  stop view** and **Redesign: Menu** (Circuit, now Spoke), **Bill 2.0** (Lemon Energy), **íon** and
-  **NBA Live game experience** (Work & Co). Company years on the cards come from the Experience page.
+- The home page's "Selected Work" is a plain list of 4 entries (no thumbnails), all adapted from your Figma
+  presentation: **Address Scanner**, **Dynamic Island** and **Driver Profile** (Circuit, now Spoke) have a page each; **Other projects** is one page with the five smaller ones: **Redesign: Edit stop view** and **Redesign: Menu** (Circuit), **Bill 2.0** (Lemon Energy), **íon** and **NBA Live game experience** (Work & Co).
 - The home page hero is a **test with six interchangeable variants** (all placeholders):
   **Skate** (a free-roaming skateboard that rides the headline's letters as solid terrain when the
   cursor goes over them), **Game** (a Chrome-dino-style endless runner: skate down a street and jump
   the obstacles with space / ↑ / click / tap; press Start first), **Spotify** (the hero glows in your
   current song's cover colours, with the cover spinning like a record), **Dots** (the original dot
-  field), **Type** ("Quinzi" set in many odd typefaces as a typographic series: a sheet of tiles, black on white; hover inverts a tile, click changes its typeface, and one tile changes on its own every few seconds; fonts come from Google Fonts only for this variant) and **Photo wall** (the 24 photos from the deck's second slide in `assets/hero-photos/`, as
+  field), **Type** ("Quinzi" set in many odd typefaces as a typographic series: one big tile filling the hero, black on white; hover inverts it, click changes the typeface, and it changes on its own every few seconds; fonts come from Google Fonts only for this variant) and **Photo wall** (the 24 photos from the deck's second slide in `assets/hero-photos/`, as
   slowly drifting black-and-white columns that turn to colour on hover; this is the default). Switch
   with the pill in the hero or `?hero=skate|game|spotify|dots|wall|type` in the URL. Code: `hero.js` +
   `hero.css`. When you pick one variant, delete the others from `variants` in `hero.js` (and their
@@ -148,14 +144,12 @@ Its media lives in `assets/address-scanner/` (~10 MB):
 - Screenshots (Problem) are JPGs exported from the Figma slides; the Impact chart is an inline SVG (data traced from the deck's analytics chart).
 - `hero.jpg` is the same three frames on dark gray, used only as the page's social-share `og:image` (composed once with Pillow). The page itself has no hero image; it opens on the title.
 
-The other seven projects use the same page structure, with these extra layouts (all `cs2-*`
-classes in `styles.css`): phone video in a stage, stacked Dynamic Island strips, dark slide
-screenshots (`cs2-shot`), captioned phone pairs, a video playing inside a phone frame (íon) and a
-video with sound and controls (the Driver Profile pitch). Their pages, in order (each page's
-"Next project" link follows this order): `case-study-address-scanner.html` →
-`case-study-dynamic-island.html` → `case-study-driver-profile.html` →
-`case-study-circuit-edit-stop.html` → `case-study-circuit-menu.html` →
-`case-study-lemon-bill.html` → `case-study-ion.html` → `case-study-nba-live-game.html`.
+The other pages use the same structure, with these extra layouts (all `cs2-*` classes in
+`styles.css`): phone video in a stage, stacked Dynamic Island strips, dark slide screenshots
+(`cs2-shot`), captioned phone pairs, a video playing inside a phone frame (íon) and a video with
+sound and controls (the Driver Profile pitch). Their pages, in order (each page's "Next project"
+link follows this order): `case-study-address-scanner.html` → `case-study-dynamic-island.html` →
+`case-study-driver-profile.html` → `case-study-other-projects.html` (five projects on one page: it snaps from slide to slide, one project per screen, and each project's parts are a small carousel with arrows (and a counter), swipe and ← / → keys).
 
 Where the media came from (all under `assets/<project>/`): videos were matched to the deck by file
 hash and compressed with ffmpeg; the mockups are renders of the deck's slides.

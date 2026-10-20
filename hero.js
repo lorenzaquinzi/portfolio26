@@ -927,10 +927,10 @@
   };
 
   /* =====================================================================
-     TYPE — "Quinzi" as a typographic series: a contact sheet of tiles, each setting the
-     same word in a different, odd typeface or texture, black on white. Hover a tile to
-     invert it (the melting one melts), click to change its typeface; every few seconds
-     one tile changes on its own. Fonts come from Google Fonts, loaded only here.
+     TYPE — "Quinzi" as a typographic series: one big tile that fills the hero and sets the
+     word in a different, odd typeface or texture each time, black on white. Hover to
+     invert it (the melting one melts), click to change the typeface; it also changes on
+     its own every few seconds. Fonts come from Google Fonts, loaded only here.
      ===================================================================== */
   var TYPE_FONTS = "https://fonts.googleapis.com/css2?family=Monoton&family=Rubik+Glitch&family=Libre+Barcode+128+Text&family=Rubik+Wet+Paint&family=Climate+Crisis:YEAR@1979..2050&family=Sixtyfour&family=Tilt+Prism&family=Rubik+Maze&family=Bungee+Hairline&family=Bungee+Shade&family=Jacquard+24&family=Major+Mono+Display&family=Syne:wght@800&family=Instrument+Serif:ital@1&family=Rock+3D&family=Archivo:wght@900&family=Inter:wght@800&display=swap";
   variants.type = function () {
@@ -959,8 +959,7 @@
 
     function layoutDims() {
       var w = hero.getBoundingClientRect().width;
-      cols = w >= 1200 ? 5 : w >= 900 ? 4 : w >= 600 ? 3 : 2;
-      rows = cols >= 3 ? 2 : 3;
+      cols = 1; rows = 1;                                    // one big tile: the whole hero
     }
     function setStyle(tile, i) {
       var st = STYLES[i];
@@ -968,6 +967,7 @@
       var word = tile.querySelector(".ty__word");
       word.className = "ty__word ty-" + st[0];
       tile.querySelector(".ty__name").textContent = st[1];
+      tile.querySelector(".ty__no").textContent = (i < 9 ? "0" : "") + (i + 1) + " / " + STYLES.length;
       fit(tile);
       word.classList.remove("is-in"); void word.offsetWidth; word.classList.add("is-in");
     }
@@ -975,7 +975,7 @@
       var word = tile.querySelector(".ty__word"), st = STYLES[+tile.dataset.style];
       word.style.fontSize = "100px";
       var w = word.offsetWidth || 1, h = word.offsetHeight || 1;
-      var k = Math.min((tile.clientWidth * 0.8) / w, (tile.clientHeight * 0.55) / (h * st[3]));
+      var k = Math.min((tile.clientWidth * 0.86) / w, (tile.clientHeight * 0.62) / (h * st[3]));
       word.style.fontSize = Math.max(10, Math.floor(100 * k)) + "px";
     }
     function build() {
@@ -984,13 +984,12 @@
       grid.textContent = ""; tiles = [];
       grid.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
       grid.style.gridTemplateRows = "repeat(" + rows + ", 1fr)";
-      hero.style.minHeight = Math.round(rows * tileW * 0.95) + "px";
       for (var i = 0; i < n; i++) {
         var t = el("button", "ty__tile",
           '<span class="ty__cap">Typography.26<br><span class="ty__name"></span></span>' +
-          '<span class="ty__no">' + (i < 9 ? "0" : "") + (i + 1) + "</span>" +
+          '<span class="ty__no"></span>' +
           '<span class="ty__word" aria-hidden="true">Quinzi</span>');
-        t.type = "button"; t.setAttribute("aria-label", "Quinzi, typeface " + (i + 1) + ". Press to change the typeface.");
+        t.type = "button"; t.setAttribute("aria-label", "Quinzi in a different typeface. Press to change the typeface.");
         t.dataset.style = i % STYLES.length;
         grid.appendChild(t); tiles.push(t);
         (function (tile) {
@@ -1035,19 +1034,19 @@
         var t = tiles[Math.floor(Math.random() * tiles.length)];
         if (t.matches(":hover")) return;
         setStyle(t, nextFree(+t.dataset.style, t));
-      }, 2400);
+      }, 2800);
     }
     var io = null;
     if ("IntersectionObserver" in window) {
       io = new IntersectionObserver(function (en) { visible = en[0].isIntersecting; });
       io.observe(hero);
     }
-    setHint(finePointer ? "Click a tile to change its typeface" : "Tap a tile to change its typeface");
+    setHint(finePointer ? "Click to change the typeface" : "Tap to change the typeface");
 
     return function () {
       off.forEach(function (f) { f(); });
       if (timer) clearInterval(timer); if (ro) ro.disconnect(); if (io) io.disconnect();
-      hero.style.minHeight = "";
+      
     };
   };
 

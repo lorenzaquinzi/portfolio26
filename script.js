@@ -191,3 +191,49 @@
     sync();
   });
 })();
+
+/* "Other projects": the little carousel inside each project slide (swipe / scroll, arrow keys, buttons). */
+(function () {
+  "use strict";
+  var cars = document.querySelectorAll("[data-car]");
+  if (!cars.length) return;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  cars.forEach(function (car) {
+    var slide = car.closest(".cs2-slide");
+    var panels = Array.prototype.slice.call(car.querySelectorAll(".cs2-panel"));
+    var prev = slide.querySelector("[data-car-prev]"), next = slide.querySelector("[data-car-next]");
+    var now = slide.querySelector("[data-car-now]");
+    panels.forEach(function (p, i) {
+      p.setAttribute("aria-label", (i + 1) + " of " + panels.length + ": " + p.getAttribute("data-title"));
+    });
+    function index() {
+      if (panels.length < 2) return 0;
+      var pitch = panels[1].offsetLeft - panels[0].offsetLeft || car.clientWidth;
+      return Math.max(0, Math.min(panels.length - 1, Math.round(car.scrollLeft / pitch)));
+    }
+    function update() {
+      var i = index();
+      if (now) now.textContent = String(i + 1);
+      if (prev) prev.disabled = i === 0;
+      if (next) next.disabled = i === panels.length - 1;
+    }
+    function goTo(i) {
+      i = Math.max(0, Math.min(panels.length - 1, i));
+      car.scrollTo({ left: panels[i].offsetLeft - panels[0].offsetLeft, behavior: reduce ? "auto" : "smooth" });
+    }
+    function go(d) { goTo(index() + d); }
+    var ticking = false;
+    car.addEventListener("scroll", function () {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () { ticking = false; update(); });
+    }, { passive: true });
+    if (prev) prev.addEventListener("click", function () { go(-1); });
+    if (next) next.addEventListener("click", function () { go(1); });
+    car.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+    });
+    update();
+  });
+})();

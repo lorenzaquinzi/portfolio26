@@ -382,6 +382,7 @@ ul { margin: 0; padding: 0; list-style: none; }
    with class "cs-gallery__img".) */
 .cs-cover img,
 .about-grid__portrait img {
+  object-position: 50% 28%;
   display: block;
   width: 100%;
   height: 100%;
@@ -995,10 +996,157 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* About page: details list under the copy */
 .about-facts { font-size: clamp(14px, 1.3vw, 16px); margin-top: 36px; }
 .about-facts div { grid-template-columns: 110px minmax(0, 1fr); }
-.about-more { margin-top: 24px; font-size: 15px; }
-.about-more a { text-decoration: none; border-bottom: 1px solid var(--border); }
-.about-more a:hover { border-bottom-color: var(--fg); }
 @media (max-width: 860px) {
   .about-facts div { grid-template-columns: 96px minmax(0, 1fr); }
   .about-grid__portrait { max-width: 340px; } /* the portrait file is small: don't stretch it across the page */
+}
+
+/* Other projects page: a project heading, then its sections one level down (h3) */
+.cs2-proj {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+  margin: clamp(72px, 11vw, 150px) var(--gutter) 0;
+  padding-top: clamp(28px, 4vw, 48px);
+  border-top: 1px solid var(--border);
+}
+.cs2-proj__kicker { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+.cs2-proj h2 { margin: 0; font-size: clamp(30px, 4.2vw, 60px); font-weight: 600; line-height: 1; letter-spacing: -0.04em; }
+.cs2-proj__goal { margin: 0 0 14px; font-size: clamp(19px, 1.9vw, 26px); line-height: 1.25; letter-spacing: -0.02em; font-weight: 500; max-width: 40ch; }
+.cs2-proj__role { margin: 0; font-size: 15px; line-height: 1.45; color: var(--muted); max-width: 52ch; }
+.cs2-proj__role strong { color: var(--fg); font-weight: 500; margin-right: 8px; }
+.cs2-sec h3 { margin: 0 0 16px; font-size: clamp(24px, 3vw, 40px); font-weight: 600; line-height: 1.05; letter-spacing: -0.035em; }
+.cs2-sec--wide .cs2-sec__text h3 { margin: 0; }
+.cs2-meta dd a { text-decoration: none; border-bottom: 1px solid var(--border); }
+.cs2-meta dd a:hover { border-bottom-color: var(--fg); }
+@media (max-width: 860px) { .cs2-proj { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Other projects: one full-screen slide per project ----------
+   The page snaps from slide to slide as you scroll. Left: the project (title, goal, role,
+   problems) with the carousel controls pinned at the bottom. Right: one stage whose content
+   is a small horizontal carousel (the project's parts). Swipe, arrow keys, buttons or dots. */
+html:has(.cs2--slides) { scroll-snap-type: y mandatory; }
+.cs2--slides ~ .cs-next, .cs2--slides ~ .footer { scroll-snap-align: start; }
+html:has(.cs2--slides) .index-nav { scroll-snap-align: start; }
+/* the intro is just a normal header (same place and size as on the other project pages); the first slide follows right below it */
+.cs2--slides .cs2-head--slide { padding-bottom: clamp(36px, 5vw, 64px); }
+
+.cs2-slide {
+  display: grid;
+  grid-template-columns: minmax(280px, 4fr) minmax(0, 8fr);
+  gap: clamp(28px, 5vw, 80px);
+  height: 100svh;
+  min-height: 600px;
+  padding: clamp(20px, 3.5vh, 36px) var(--gutter);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  border-top: 1px solid var(--border);
+}
+
+/* left column: content on top, controls at the bottom, both lined up with the stage */
+.cs2-slide__info { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; scrollbar-width: none; padding-top: 4px; }
+.cs2-slide__info::-webkit-scrollbar { display: none; }
+.cs2-slide__info .cs2-proj__kicker { margin: 0 0 12px; font-size: 13px; color: var(--muted); }
+.cs2-slide__info h2 { margin: 0 0 20px; font-size: clamp(28px, 3.4vw, 46px); font-weight: 600; line-height: 1.02; letter-spacing: -0.04em; }
+.cs2-slide__info .cs2-proj__goal { margin: 0 0 14px; font-size: clamp(16px, 1.45vw, 19px); line-height: 1.35; letter-spacing: -0.01em; font-weight: 500; max-width: 38ch; }
+.cs2-slide__info .cs2-proj__role { margin: 0; font-size: 14px; line-height: 1.45; color: var(--muted); max-width: 40ch; }
+.cs2-slide__info .cs2-proj__role strong { display: block; margin: 0 0 2px; font-size: 12px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); }
+.cs2-slide__problems { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border); }
+.cs2-slide__problems h3 { margin: 0 0 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.02em; }
+.cs2-slide__problems .cs2-list { margin: 0; font-size: 14px; line-height: 1.4; }
+.cs2-slide__problems .cs2-list li { margin-bottom: 8px; }
+
+.cs2-car__ctl { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: 24px; }
+.cs2-car__btn {
+  width: 38px; height: 38px; flex: none; display: grid; place-items: center;
+  border: 1px solid var(--border); border-radius: 999px; background: transparent; color: var(--fg);
+  font-size: 15px; cursor: pointer; transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+.cs2-car__btn:hover:not(:disabled) { border-color: var(--fg); }
+.cs2-car__btn:disabled { opacity: 0.3; cursor: default; }
+.cs2-car__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.cs2-car__count { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; margin-left: auto; }
+
+/* right column: the stage */
+.cs2-car {
+  position: relative;
+  display: flex;
+  gap: 0;
+  min-width: 0;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  border-radius: var(--radius);
+  outline: none;
+}
+.cs2-car::-webkit-scrollbar { display: none; }
+.cs2-car:focus-visible { box-shadow: 0 0 0 2px var(--focus); }
+.cs2-panel {
+  --ink: var(--fg); --ink-soft: var(--muted);
+  position: relative;
+  flex: 0 0 100%;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+  background: var(--stage);
+  overflow: hidden;
+}
+.cs2-panel--dark { background: #141414; --ink: #f4f4f2; --ink-soft: rgba(244, 244, 242, 0.62); }
+.cs2-panel__head { position: relative; z-index: 2; flex: none; padding: clamp(16px, 2.2vw, 26px) clamp(16px, 2.2vw, 28px) 0; color: var(--ink); }
+.cs2-panel__head h3 { display: inline-block; margin: 0; padding: 5px 12px; border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); border-radius: 999px; font-size: 12px; font-weight: 500; letter-spacing: 0.01em; line-height: 1.2; }
+.cs2-panel__head p { margin: 12px 0 0; max-width: 44ch; font-size: 15px; line-height: 1.4; color: var(--ink-soft); }
+.cs2-panel__head p strong { color: var(--ink); font-weight: 600; }
+.cs2-panel__media { flex: 1 1 0; min-height: 0; display: flex; padding: clamp(12px, 2vw, 24px); }
+.cs2-panel__media > * { flex: 1 1 auto; min-width: 0; min-height: 0; }
+
+/* media inside the stage: no boxes of their own, scaled to fit */
+.cs2-panel .cs2-shot, .cs2-panel .cs2-stage { height: 100%; margin: 0; padding: 0; border-radius: 0; background: transparent; display: flex; align-items: center; justify-content: center; overflow: visible; }
+.cs2-panel .cs2-shot img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
+.cs2-panel .cs2-phones { display: grid; grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); gap: clamp(10px, 2.4vw, 32px); align-items: stretch; justify-items: center; }
+.cs2-panel .cs2-phones figure { display: flex; flex-direction: column; align-items: center; min-height: 0; min-width: 0; height: 100%; }
+.cs2-panel .cs2-phones img { flex: 1 1 0; min-height: 0; width: auto; max-width: 100%; object-fit: contain; }
+.cs2-panel .cs2-phones figcaption { flex: none; margin-top: 10px; color: var(--ink-soft); }
+.cs2-panel .cs2-frame { height: 100%; width: auto; aspect-ratio: 735 / 1080; }
+.cs2-panel .cs2-clip-btn { left: auto; right: 12px; bottom: 12px; }
+
+@media (max-width: 860px) {
+  .cs2-slide { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 18px; height: auto; min-height: 100svh; }
+  .cs2-slide__info { overflow: visible; }
+  .cs2-slide__info h2 { margin-bottom: 10px; }
+  .cs2-slide__problems { margin-top: 14px; padding-top: 12px; }
+  .cs2-car__ctl { order: 3; padding-top: 14px; }
+  .cs2-car { height: calc(100svh - 120px); min-height: 440px; }
+}
+/* landscape widgets (e.g. the volume swipes): keep them together at their own size */
+.cs2-panel .cs2-phones--wide { grid-template-rows: auto; align-content: center; }
+.cs2-panel .cs2-phones--wide figure { height: auto; }
+.cs2-panel .cs2-phones--wide img { flex: none; width: 100%; height: auto; }
+
+/* Experience: education */
+.exp-edu { margin-top: clamp(40px, 6vw, 72px); }
+.exp-edu__title { margin: 0 0 14px; font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--muted); }
+.exp-edu__list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+.exp-edu__list li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 24px; padding: 20px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+.exp-edu__what { font-size: 17px; font-weight: 600; }
+.exp-edu__where { font-size: 16px; color: var(--muted); }
+@media (max-width: 860px) { .exp-edu__list li { grid-template-columns: minmax(0, 1fr); } }
+
+/* About: the details table sits at the bottom of the photo, with no divider above its first row */
+.about-grid { align-items: stretch; }
+@media (min-width: 861px) {
+  .about-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .about-grid__portrait { align-self: stretch; aspect-ratio: auto; min-height: 420px; } /* as tall as the text column, so the table lines up with the bottom of the photo */
+}
+.about-copy { display: flex; flex-direction: column; }
+.about-facts { margin-top: auto; padding-top: 36px; }
+.about-facts > div:first-child { border-top: 0; padding-top: 0; }
+@media (max-width: 860px) {
+  .about-facts { margin-top: 36px; padding-top: 0; }
+  .about-grid__portrait { align-self: start; aspect-ratio: 4 / 5; min-height: 0; }
 }
