@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Address Scanner — Spoke — Lorenza Quinzi</title>
+  <meta name="description" content="Spoke (Circuit): enabling drivers to quickly scan addresses on iOS and Android through a tailored experience. Lead designer — design, prototype, handoff and QA." />
+  <meta name="author" content="Lorenza Quinzi" />
+  <meta property="og:title" content="Address Scanner — Spoke — Lorenza Quinzi" />
+  <meta property="og:description" content="Enabling drivers to quickly scan addresses through a tailored experience." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://lorenzaquinzi.github.io/portfolio26/assets/address-scanner/hero.jpg" />
+  <meta name="theme-color" content="#F9F9F7" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext x='50' y='68' font-family='Arial, sans-serif' font-size='58' font-weight='700' fill='%23F9F9F7' text-anchor='middle'%3ELQ%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="index-nav" aria-label="Primary">
+    <a class="index-nav__logo" href="index.html">Lorenza Quinzi</a>
+    <div class="index-nav__links">
+      <a href="index.html#work" aria-current="page">Selected Work</a>
+      <a href="experience.html">Experience</a>
+      <a href="about.html">About</a>
+      <a href="#contact">Contact</a>
+      <button class="index-nav__theme" data-theme-toggle type="button" aria-pressed="false">
+        <span class="disc" aria-hidden="true"></span>
+        <span class="sr-only" data-theme-label>Dark mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main" class="cs2">
+
+    <!-- Title + summary -->
+    <header class="cs2-head">
+      <div class="cs2-head__title">
+        <h1>Address Scanner</h1>
+        <ul class="cs2-tags" aria-label="Disciplines">
+          <li>Product Design</li>
+          <li>Prototyping</li>
+          <li>Handoff &amp; QA</li>
+        </ul>
+      </div>
+      <div class="cs2-head__body">
+        <p class="cs2-lede">Enable drivers to quickly scan addresses through a tailored experience.</p>
+        <p>Good example of a day to day challenge where I spent quite some time collaborating with the team to get to the final solution.</p>
+        <dl class="cs2-meta">
+          <div><dt>Company</dt><dd>Spoke (formerly Circuit)</dd></div>
+          <div><dt>Role</dt><dd>Lead designer. Design, prototype, handoff and QA.</dd></div>
+          <div><dt>Platforms</dt><dd>iOS and Android</dd></div>
+          <div><dt>Target users</dt><dd>Drivers who work day and night and need to load numerous packages into their vehicles before starting their route.</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <!-- Problem -->
+    <section class="cs2-sec" data-reveal aria-labelledby="problem">
+      <div class="cs2-sec__text">
+        <h2 id="problem">Problem</h2>
+        <p>The previous experience used Live Text technology, which was iOS-only and not tailored to Spoke&rsquo;s users, though fast and easy to use.</p>
+        <p>We aimed to create a platform-agnostic solution without losing these benefits.</p>
+      </div>
+      <div class="cs2-stage cs2-stage--multi" style="--n:2">
+        <img class="cs2-media" src="assets/address-scanner/problem-1.jpg" width="660" height="1431" loading="lazy" alt="Previous iOS flow: the search field with a live camera view below it, prompting to find a nearby address." />
+        <img class="cs2-media" src="assets/address-scanner/problem-2.jpg" width="660" height="1431" loading="lazy" alt="Previous iOS flow: an address read by Live Text from a package label, with an Insert button." />
+      </div>
+    </section>
+
+    <!-- Adding stops -->
+    <section class="cs2-sec" data-reveal aria-labelledby="adding">
+      <div class="cs2-sec__text">
+        <h2 id="adding">Adding stops</h2>
+        <p>A single solution that works for iOS and Android. Brand aligned and well integrated with the rest of the app. Immersive, fast and flexible.</p>
+      </div>
+      <figure class="cs2-stage">
+        <video class="cs2-media" data-clip muted loop playsinline preload="none"
+               poster="assets/address-scanner/adding.jpg"
+               aria-label="Screen recording on iPhone: from the route screen the driver opens the scanner, points it at a package label, the address is read and the stop is added.">
+          <source src="assets/address-scanner/adding.mp4" type="video/mp4" />
+        </video>
+      </figure>
+    </section>
+
+    <!-- Finding stops -->
+    <section class="cs2-sec" data-reveal aria-labelledby="finding">
+      <div class="cs2-sec__text">
+        <h2 id="finding">Finding stops</h2>
+        <p>Opens a stop if the scanned address is already on their route.</p>
+      </div>
+      <figure class="cs2-stage">
+        <video class="cs2-media" data-clip muted loop playsinline preload="none"
+               poster="assets/address-scanner/finding.jpg"
+               aria-label="Screen recording on iPhone: scanning a package whose address is already on the route opens that existing stop.">
+          <source src="assets/address-scanner/finding.mp4" type="video/mp4" />
+        </video>
+      </figure>
+    </section>
+
+    <!-- Wrong address? -->
+    <section class="cs2-sec" data-reveal aria-labelledby="wrong">
+      <div class="cs2-sec__text">
+        <h2 id="wrong">Wrong address?</h2>
+        <p>If the app shows the wrong result, the user can return to the regular search, edit the address using the keyboard, and add the stop to the route.</p>
+      </div>
+      <figure class="cs2-stage">
+        <video class="cs2-media" data-clip muted loop playsinline preload="none"
+               poster="assets/address-scanner/wrong.jpg"
+               aria-label="Screen recording on iPhone: after a wrong result the driver taps Wrong address, edits the address with the keyboard and adds the stop.">
+          <source src="assets/address-scanner/wrong.mp4" type="video/mp4" />
+        </video>
+      </figure>
+    </section>
+
+    <!-- Highlights -->
+    <section class="cs2-sec cs2-sec--wide" data-reveal aria-labelledby="highlights">
+      <div class="cs2-sec__text">
+        <h2 id="highlights">Highlights</h2>
+      </div>
+      <ul class="cs2-points">
+        <li>Prototyping using <strong>Protopie</strong> from the beginning to understand constraints and the scanner feeling in general.</li>
+        <li>Experimented on different reading speeds to make sure it was natural to use.</li>
+        <li>Tap to force text when scanner is not recognizing the address.</li>
+        <li>Added a language selector on Android because of system constraints.</li>
+      </ul>
+    </section>
+
+    <!-- Follow-up -->
+    <section class="cs2-sec" data-reveal aria-labelledby="photo">
+      <div class="cs2-sec__text">
+        <p class="cs2-kicker">Follow up project</p>
+        <h2 id="photo">Package photo</h2>
+        <p>We took the opportunity of them having the package in hand and we added a feature for users to add a photo of it.</p>
+      </div>
+      <figure class="cs2-stage">
+        <video class="cs2-media" data-clip muted loop playsinline preload="none"
+               poster="assets/address-scanner/photo.jpg"
+               aria-label="Screen recording on iPhone: Add stop and take photo opens the camera, and the package photo appears in the stop details.">
+          <source src="assets/address-scanner/photo.mp4" type="video/mp4" />
+        </video>
+      </figure>
+    </section>
+
+    <!-- Impact -->
+    <section class="cs2-sec" data-reveal aria-labelledby="impact">
+      <div class="cs2-sec__text">
+        <h2 id="impact">Impact</h2>
+        <p>Feature available on both platforms, Android users can now scan addresses. The adoption was fast and substantial.</p>
+        <p>Both platforms with the same experience.</p>
+      </div>
+      <figure class="cs2-data">
+        <svg viewBox="0 0 860 330" role="img" aria-labelledby="data-title data-desc" preserveAspectRatio="xMidYMid meet">
+          <title id="data-title">Weekly unique users of the address scanner</title>
+          <desc id="data-desc">Line chart. Android goes from zero to about 12 thousand weekly users soon after the feature launched and stays there, ending at 11.8 thousand. iOS stays steady around 5 thousand, ending at 5.5 thousand.</desc>
+          <defs>
+            <linearGradient id="data-fade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" style="stop-color:var(--fg);stop-opacity:0.07" />
+              <stop offset="1" style="stop-color:var(--fg);stop-opacity:0" />
+            </linearGradient>
+          </defs>
+          <text class="cs2-data__cap" x="0" y="12">Weekly unique users</text>
+          <line class="cs2-data__grid" x1="34" y1="198.1" x2="650" y2="198.1" /><text class="cs2-data__tick" x="0" y="202.1">5k</text><line class="cs2-data__grid" x1="34" y1="126.2" x2="650" y2="126.2" /><text class="cs2-data__tick" x="0" y="130.2">10k</text><line class="cs2-data__grid" x1="34" y1="54.4" x2="650" y2="54.4" /><text class="cs2-data__tick" x="0" y="58.4">15k</text>
+          <line class="cs2-data__base" x1="34" y1="270" x2="650" y2="270" />
+          <g class="cs2-data__end cs2-data__launch">
+            <line class="cs2-data__launchline" x1="52.7" y1="270" x2="52.7" y2="28" />
+            <circle class="cs2-data__launchdot" cx="52.7" cy="270" r="3.5" />
+            <text class="cs2-data__launchlabel" x="61.7" y="32">Android launch</text>
+          </g>
+          <path class="cs2-data__area" d="M34.0 269.3 C40.2 268.3 46.4 268.3 52.7 266.3 C58.9 264.3 65.1 148.8 71.3 118.5 C77.6 88.2 83.8 52.9 90.0 52.9 C96.2 52.9 102.4 95.7 108.7 100.8 C114.9 105.8 121.1 109.8 127.3 109.8 C133.6 109.8 139.8 99.8 146.0 97.1 C152.2 94.5 158.4 91.3 164.7 91.3 C170.9 91.3 177.1 92.9 183.3 93.7 C189.6 94.5 195.8 95.0 202.0 96.0 C208.2 97.0 214.4 98.6 220.7 100.1 C226.9 101.6 233.1 104.9 239.3 105.2 C245.6 105.5 251.8 105.7 258.0 105.7 C264.2 105.7 270.4 105.5 276.7 105.5 C282.9 105.5 289.1 105.8 295.3 105.8 C301.6 105.8 307.8 103.2 314.0 103.2 C320.2 103.2 326.4 103.3 332.7 103.4 C338.9 103.5 345.1 108.0 351.3 108.0 C357.6 108.0 363.8 107.6 370.0 107.1 C376.2 106.6 382.4 103.3 388.7 103.3 C394.9 103.3 401.1 104.1 407.3 104.8 C413.6 105.6 419.8 109.1 426.0 109.7 C432.2 110.3 438.4 110.8 444.7 110.8 C450.9 110.8 457.1 106.9 463.3 105.2 C469.6 103.5 475.8 100.6 482.0 100.6 C488.2 100.6 494.4 102.1 500.7 102.5 C506.9 102.8 513.1 103.1 519.3 103.1 C525.6 103.1 531.8 98.7 538.0 97.2 C544.2 95.7 550.4 93.6 556.7 93.6 C562.9 93.6 569.1 95.7 575.3 97.0 C581.6 98.2 587.8 100.9 594.0 101.2 C600.2 101.5 606.4 101.7 612.7 101.7 C618.9 101.7 625.1 100.1 631.3 100.0 C637.6 100.0 643.8 100.0 650.0 99.9 L650.0 270 L34.0 270 Z" />
+          <path class="cs2-data__line cs2-data__line--ios" pathLength="1" d="M34.0 187.2 C40.2 187.8 46.4 189.0 52.7 189.0 C58.9 189.0 65.1 188.7 71.3 188.7 C77.6 188.7 83.8 192.1 90.0 194.7 C96.2 197.3 102.4 204.7 108.7 206.0 C114.9 207.3 121.1 208.4 127.3 208.4 C133.6 208.4 139.8 204.6 146.0 203.6 C152.2 202.7 158.4 201.6 164.7 201.6 C170.9 201.6 177.1 202.1 183.3 202.3 C189.6 202.5 195.8 202.8 202.0 202.8 C208.2 202.8 214.4 202.8 220.7 202.8 C226.9 202.8 233.1 203.3 239.3 203.5 C245.6 203.7 251.8 204.1 258.0 204.1 C264.2 204.1 270.4 203.7 276.7 203.4 C282.9 203.1 289.1 202.4 295.3 202.0 C301.6 201.6 307.8 200.9 314.0 200.9 C320.2 200.9 326.4 200.9 332.7 200.9 C338.9 200.9 345.1 201.3 351.3 201.3 C357.6 201.3 363.8 200.3 370.0 199.8 C376.2 199.2 382.4 197.7 388.7 197.6 C394.9 197.5 401.1 197.5 407.3 197.5 C413.6 197.5 419.8 198.3 426.0 198.3 C432.2 198.3 438.4 198.2 444.7 198.1 C450.9 197.9 457.1 196.9 463.3 196.5 C469.6 196.1 475.8 195.5 482.0 195.5 C488.2 195.5 494.4 195.7 500.7 195.7 C506.9 195.7 513.1 195.1 519.3 194.7 C525.6 194.3 531.8 193.2 538.0 193.0 C544.2 192.8 550.4 192.7 556.7 192.7 C562.9 192.7 569.1 193.3 575.3 193.4 C581.6 193.5 587.8 193.7 594.0 193.7 C600.2 193.7 606.4 193.1 612.7 192.7 C618.9 192.4 625.1 192.0 631.3 191.7 C637.6 191.5 643.8 191.4 650.0 191.2" />
+          <path class="cs2-data__line cs2-data__line--android" pathLength="1" d="M34.0 269.3 C40.2 268.3 46.4 268.3 52.7 266.3 C58.9 264.3 65.1 148.8 71.3 118.5 C77.6 88.2 83.8 52.9 90.0 52.9 C96.2 52.9 102.4 95.7 108.7 100.8 C114.9 105.8 121.1 109.8 127.3 109.8 C133.6 109.8 139.8 99.8 146.0 97.1 C152.2 94.5 158.4 91.3 164.7 91.3 C170.9 91.3 177.1 92.9 183.3 93.7 C189.6 94.5 195.8 95.0 202.0 96.0 C208.2 97.0 214.4 98.6 220.7 100.1 C226.9 101.6 233.1 104.9 239.3 105.2 C245.6 105.5 251.8 105.7 258.0 105.7 C264.2 105.7 270.4 105.5 276.7 105.5 C282.9 105.5 289.1 105.8 295.3 105.8 C301.6 105.8 307.8 103.2 314.0 103.2 C320.2 103.2 326.4 103.3 332.7 103.4 C338.9 103.5 345.1 108.0 351.3 108.0 C357.6 108.0 363.8 107.6 370.0 107.1 C376.2 106.6 382.4 103.3 388.7 103.3 C394.9 103.3 401.1 104.1 407.3 104.8 C413.6 105.6 419.8 109.1 426.0 109.7 C432.2 110.3 438.4 110.8 444.7 110.8 C450.9 110.8 457.1 106.9 463.3 105.2 C469.6 103.5 475.8 100.6 482.0 100.6 C488.2 100.6 494.4 102.1 500.7 102.5 C506.9 102.8 513.1 103.1 519.3 103.1 C525.6 103.1 531.8 98.7 538.0 97.2 C544.2 95.7 550.4 93.6 556.7 93.6 C562.9 93.6 569.1 95.7 575.3 97.0 C581.6 98.2 587.8 100.9 594.0 101.2 C600.2 101.5 606.4 101.7 612.7 101.7 C618.9 101.7 625.1 100.1 631.3 100.0 C637.6 100.0 643.8 100.0 650.0 99.9" />
+          <g class="cs2-data__end">
+            <circle class="cs2-data__halo cs2-data__halo--ios" cx="650.0" cy="191.2" r="8" />
+            <circle class="cs2-data__dot cs2-data__dot--ios" cx="650.0" cy="191.2" r="3.5" />
+            <circle class="cs2-data__halo cs2-data__halo--android" cx="650.0" cy="99.9" r="8" />
+            <circle class="cs2-data__dot cs2-data__dot--android" cx="650.0" cy="99.9" r="3.5" />
+            <text class="cs2-data__label cs2-data__label--android" x="668" y="104.9">Android <tspan class="cs2-data__num">11.8k</tspan></text>
+            <text class="cs2-data__label cs2-data__label--ios" x="668" y="196.2">iOS <tspan class="cs2-data__num">5.5k</tspan></text>
+          </g>
+        </svg>
+      </figure>
+    </section>
+
+  </main>
+
+  <a class="cs-next" href="case-study-dynamic-island.html">
+    <span>
+      <span class="cs-next__label eyebrow">Next project</span>
+      <span class="cs-next__title">Dynamic Island — Circuit</span>
+    </span>
+    <span aria-hidden="true">→</span>
+  </a>
+
+  <footer class="footer" id="contact">
+    <h2 class="footer__title">Let&rsquo;s build something that works.</h2>
+    <a class="footer__email" href="mailto:lorenzaquinzi@gmail.com">lorenzaquinzi@gmail.com</a>
+
+    <a class="footer__now-playing" data-now-playing href="#" target="_blank" rel="noopener" hidden>
+      <span class="footer__now-playing-dot" aria-hidden="true"></span>
+      <span data-now-playing-label>Now playing</span>
+      <span data-now-playing-track></span>
+    </a>
+
+    <div class="footer__links">
+      <div class="footer__socials">
+        <a href="https://www.linkedin.com/in/lorenzaquinzi" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.instagram.com/lorenzaquinzi" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+      <p class="footer__meta">© <span data-year>2026</span> Lorenza Quinzi</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

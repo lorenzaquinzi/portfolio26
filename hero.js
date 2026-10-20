@@ -1,17 +1,12 @@
 // Lorenza Quinzi — Home hero, interaction TEST variants.
 //
 // Interchangeable heroes share one frame (index.html → <section data-hero>):
-//   photo    — your photo / GIF, black-and-white with film grain; the cursor is a
-//              soft light that reveals the colour underneath
-//   zine     — the same image as a photocopied halftone; the cursor is a loupe
-//              that resolves it into fine detail
 //   skate    — a free-roaming skateboard that rides the headline when you go over it
 //   game     — a Chrome-dino-style endless runner: skate down a street, jump the obstacles
 //   spotify  — glow + spinning record driven by the song you're listening to
 //   dots     — the original dot-field placeholder
-//
-// photo + zine read their image from assets/hero-media.gif (or hero-media.jpg).
-// Until you add one they show a plain gray box.
+//   type     — "Quinzi" set in many odd typefaces, as a typographic series of tiles
+//   wall     — the photos from the deck's second slide as drifting B&W columns, colour on hover
 //
 // The switcher in the hero (and ?hero=name in the URL) is only for comparing.
 // Once one wins: delete the others from `variants`, delete the switcher markup in
@@ -164,240 +159,6 @@
     return function () {
       off.forEach(function (f) { f(); });
       lp.stop(); if (io) io.disconnect();
-      themeListeners.splice(themeListeners.indexOf(theme), 1);
-    };
-  };
-
-  /* =====================================================================
-     Shared by photo + zine: the image, and the "light" that follows the cursor
-     ===================================================================== */
-  var MEDIA = ["assets/hero-media.gif", "assets/hero-media.jpg"];
-  function loadMedia(done) {
-    var i = 0;
-    (function next() {
-      if (i >= MEDIA.length) { done(null); return; }
-      var img = new Image();
-      img.onload = function () { done(img); };
-      img.onerror = next;
-      img.src = MEDIA[i++];
-    })();
-  }
-
-  // A soft circle that drifts on its own until you move the cursor (so it also
-  // reads on touch screens), then follows the cursor with a little lag.
-  function makeLens(radius) {
-    var L = { x: 0, y: 0, tx: 0, ty: 0, r: 0, tr: 0, idle: true, has: false, t0: performance.now() };
-    L.tick = function (dt) {
-      var R = hero.getBoundingClientRect(), now = performance.now();
-      if (L.idle) {
-        if (reduceMotion) { L.tx = R.width * 0.62; L.ty = R.height * 0.4; }
-        else {
-          var t = (now - L.t0) / 1000;
-          L.tx = R.width * (0.5 + 0.32 * Math.sin(t * 0.45));
-          L.ty = R.height * (0.45 + 0.25 * Math.sin(t * 0.31 + 1));
-        }
-        L.tr = radius;
-      } else { L.tr = L.has ? radius : 0; }
-      var k = Math.min(1, (reduceMotion ? 1 : 0.12) * dt);
-      L.x += (L.tx - L.x) * k; L.y += (L.ty - L.y) * k;
-      L.r += (L.tr - L.r) * Math.min(1, (reduceMotion ? 1 : 0.1) * dt);
-      return (L.idle && !reduceMotion) || Math.abs(L.tx - L.x) > 0.3 || Math.abs(L.ty - L.y) > 0.3 || Math.abs(L.tr - L.r) > 0.3;
-    };
-    L.bind = function (bag, wake) {
-      function at(e) {
-        if (e.target.closest && e.target.closest(".hero-switcher")) return;
-        var p = local(e);
-        L.tx = p.x; L.ty = p.y; L.idle = false; L.has = true; wake();
-      }
-      listen(bag, hero, "pointermove", at);
-      listen(bag, hero, "pointerdown", at);
-      listen(bag, hero, "pointerleave", function (e) {
-        if (e.pointerType === "mouse") { L.has = false; L.idle = true; wake(); }
-      });
-    };
-    return L;
-  }
-
-  /* =====================================================================
-     PHOTO — your photo / GIF in black and white with film grain. The cursor is a
-     soft light: the colour comes back inside it. (One image, a grey blend layer
-     with a hole in it — so a GIF stays perfectly in sync.)
-     ===================================================================== */
-  variants.photo = function () {
-    var off = [], dead = false, visible = true;
-    var wrap = el("div", "ph");
-    var img = el("img", "ph__img");
-    img.alt = ""; img.decoding = "async"; img.draggable = false;
-    wrap.appendChild(img);
-    wrap.appendChild(el("div", "ph__gray"));
-    wrap.appendChild(el("div", "ph__shade"));
-    wrap.appendChild(el("div", "ph__grain"));
-    under.appendChild(wrap);
-
-    loadMedia(function (m) {
-      if (dead) return;
-      if (!m) { wrap.classList.add("is-empty"); setHint("Add your photo or GIF at assets/hero-media.gif"); return; }
-      if (reduceMotion && /\.gif/i.test(m.src)) { // no motion: freeze on the first frame
-        try {
-          var cv = document.createElement("canvas");
-          cv.width = m.naturalWidth; cv.height = m.naturalHeight;
-          cv.getContext("2d").drawImage(m, 0, 0);
-          img.src = cv.toDataURL("image/jpeg", 0.92);
-        } catch (e) { img.src = m.src; }
-      } else { img.src = m.src; }
-      wrap.classList.add("is-ready");
-    });
-
-    var lens = makeLens(190);
-    var lp = loop(function (dt) {
-      var keep = lens.tick(dt);
-      wrap.style.setProperty("--mx", lens.x.toFixed(1) + "px");
-      wrap.style.setProperty("--my", lens.y.toFixed(1) + "px");
-      wrap.style.setProperty("--r", lens.r.toFixed(1) + "px");
-      return keep && visible;
-    });
-    function wake() { lp.wake(); }
-    lens.bind(off, wake);
-    var io = null;
-    if ("IntersectionObserver" in window) {
-      io = new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) wake(); });
-      io.observe(hero);
-    }
-    wake();
-    setHint("Move to bring the colour back");
-
-    return function () {
-      dead = true;
-      off.forEach(function (f) { f(); });
-      lp.stop(); if (io) io.disconnect();
-    };
-  };
-
-  /* =====================================================================
-     ZINE — the same image as a photocopied halftone (staggered dots on the page
-     colour). The cursor is a loupe: inside it the dots get four times finer and
-     the picture resolves. GIFs keep moving (re-sampled ~8×/s).
-     ===================================================================== */
-  variants.zine = function () {
-    var off = [], dead = false, visible = true, ready = false, poll = null;
-    var wrap = el("div", "zine");
-    var holder = el("img", "zine__src");           // the live image we sample from
-    holder.alt = ""; holder.decoding = "async";
-    var coarse = el("canvas"), loupe = el("canvas");
-    wrap.appendChild(holder); wrap.appendChild(coarse); wrap.appendChild(loupe);
-    under.appendChild(wrap);
-    var cg = coarse.getContext("2d"), lg = loupe.getContext("2d");
-    var sample = document.createElement("canvas"), sg = sample.getContext("2d", { willReadFrequently: true });
-
-    var C = 11, F = 4, SC = 4;                      // dot pitch: page / loupe; sampling scale
-    var w = 0, h = 0, dpr = 1, lum = null, lw = 0, lh = 0, isGif = false;
-    var lens = makeLens(150);
-
-    function lumAt(x, y) {
-      var xi = clamp(Math.round(x / SC), 0, lw - 1), yi = clamp(Math.round(y / SC), 0, lh - 1);
-      return lum[yi * lw + xi];
-    }
-    function ink(l) { return isDark ? l : 1 - l; }  // light dots on dark paper, dark dots on light paper
-
-    function drawCoarse() {
-      cg.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cg.clearRect(0, 0, w, h);
-      if (!lum) return;
-      cg.fillStyle = "rgba(" + fgRGB + ",0.3)"; // quiet at rest; the loupe is the loud part
-      cg.beginPath();
-      var rowH = C * 0.866;
-      for (var j = 0, y = 0; y < h + C; j++, y = j * rowH) {
-        for (var x = (j & 1) * C * 0.5; x < w + C; x += C) {
-          var rad = C * 0.62 * Math.sqrt(ink(lumAt(x, y)));
-          if (rad < 0.7) continue;
-          cg.moveTo(x + rad, y); cg.arc(x, y, rad, 0, 6.2832);
-        }
-      }
-      cg.fill();
-    }
-
-    function drawLoupe() {
-      lg.setTransform(dpr, 0, 0, dpr, 0, 0);
-      lg.clearRect(0, 0, w, h);
-      if (!lum || lens.r < 2) return;
-      var mx = lens.x, my = lens.y, r = lens.r;
-      lg.fillStyle = "rgb(" + bgRGB + ")";          // blank the coarse dots under the loupe
-      lg.beginPath(); lg.arc(mx, my, r, 0, 6.2832); lg.fill();
-      lg.fillStyle = "rgba(" + fgRGB + ",0.92)";
-      lg.beginPath();
-      var rowH = F * 0.866;
-      for (var j = Math.floor(Math.max(0, my - r) / rowH); j * rowH <= Math.min(h, my + r); j++) {
-        var y = j * rowH, dy = y - my, half = Math.sqrt(Math.max(0, r * r - dy * dy)), shift = (j & 1) * F * 0.5;
-        for (var x = Math.ceil((Math.max(0, mx - half) - shift) / F) * F + shift; x <= Math.min(w, mx + half); x += F) {
-          var rad = F * 0.62 * Math.sqrt(ink(lumAt(x, y)));
-          if (rad < 0.4) continue;
-          lg.moveTo(x + rad, y); lg.arc(x, y, rad, 0, 6.2832);
-        }
-      }
-      lg.fill();
-      lg.strokeStyle = "rgba(" + fgRGB + ",0.4)"; lg.lineWidth = 1;
-      lg.beginPath(); lg.arc(mx, my, r, 0, 6.2832); lg.stroke();
-    }
-
-    function resample() {
-      var iw = holder.naturalWidth, ih = holder.naturalHeight;
-      if (!ready || !w || !iw) return;
-      lw = Math.ceil(w / SC); lh = Math.ceil(h / SC);
-      sample.width = lw; sample.height = lh;
-      var s = Math.max(w / iw, h / ih), dw = iw * s, dh = ih * s;     // object-fit: cover
-      sg.drawImage(holder, (w - dw) / 2 / SC, (h - dh) * 0.55 / SC, dw / SC, dh / SC);
-      var d;
-      try { d = sg.getImageData(0, 0, lw, lh).data; } catch (e) { return; }
-      if (!lum || lum.length !== lw * lh) lum = new Float32Array(lw * lh);
-      for (var i = 0; i < lum.length; i++) {
-        var l = (0.2126 * d[i * 4] + 0.7152 * d[i * 4 + 1] + 0.0722 * d[i * 4 + 2]) / 255;
-        lum[i] = clamp((l - 0.5) * 1.7 + 0.5, 0, 1);                   // photocopier contrast
-      }
-      drawCoarse();
-    }
-
-    function size() {
-      var r = hero.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = r.width; h = r.height;
-      [coarse, loupe].forEach(function (c) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); });
-      resample();
-    }
-
-    var lp = loop(function (dt) {
-      var keep = lens.tick(dt);
-      drawLoupe();
-      return keep && visible;
-    });
-    function wake() { lp.wake(); }
-    function theme() { drawCoarse(); wake(); }
-    themeListeners.push(theme);
-
-    lens.bind(off, wake);
-    listen(off, window, "resize", function () { size(); wake(); });
-    var io = null;
-    if ("IntersectionObserver" in window) {
-      io = new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) wake(); });
-      io.observe(hero);
-    }
-
-    loadMedia(function (m) {
-      if (dead) return;
-      if (!m) { wrap.classList.add("is-empty"); setHint("Add your photo or GIF at assets/hero-media.gif"); return; }
-      isGif = /\.gif/i.test(m.src);
-      holder.onload = function () {
-        ready = true; size(); wake();
-        if (isGif && !reduceMotion) poll = setInterval(function () { if (visible) { resample(); wake(); } }, 130);
-      };
-      holder.src = m.src;
-    });
-    size();
-    setHint("Move to look closer");
-
-    return function () {
-      dead = true;
-      off.forEach(function (f) { f(); });
-      lp.stop(); if (poll) clearInterval(poll); if (io) io.disconnect();
       themeListeners.splice(themeListeners.indexOf(theme), 1);
     };
   };
@@ -794,8 +555,9 @@
       g.font = "500 13px ui-monospace, SFMono-Regular, Menlo, monospace";
       g.textAlign = "right";
       var right = w - 24;
-      g.fillStyle = col(0.9); g.fillText(pad(score), right, 72);
-      g.fillStyle = col(0.45); g.fillText("HI " + pad(best), right - 56, 72);
+      var sY = w <= 640 ? 112 : 72; // below the switcher on phones
+      g.fillStyle = col(0.9); g.fillText(pad(score), right, sY);
+      g.fillStyle = col(0.45); g.fillText("HI " + pad(best), right - 56, sY);
       g.textAlign = "center";
       if (state === "dead") {
         g.font = "600 22px Inter, system-ui, sans-serif"; g.fillStyle = col(0.95);
@@ -809,6 +571,7 @@
 
     function btnY() { return Math.max(130, gy * 0.5); }
     function syncBtn() {
+      hero.classList.toggle("is-game-idle", state === "idle"); // the hero is shorter until you press Start
       btn.hidden = state === "run";
       btn.textContent = state === "dead" ? "Play again" : "Start";
       btn.style.top = btnY() + "px";
@@ -921,11 +684,8 @@
       w = hr.width; h = hr.height;
       cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
       sx = clamp(w * 0.16, 70, 200);
-      // run on the free space above the headline; if there isn't enough, dim the headline and run over it
-      gy = (content ? content.getBoundingClientRect().top - hr.top : h * 0.62) - 36;
-      var dim = gy < 200;
-      if (dim) gy = Math.min(h - 110, 260);
-      hero.classList.toggle("is-game-dim", dim);
+      // the ground sits just above the subtitle
+      gy = Math.max(150, (content ? content.getBoundingClientRect().top - hr.top : h * 0.8) - 36);
       syncBtn();
       render();
     }
@@ -956,7 +716,9 @@
     listen(off, hero, "pointerenter", function () { inside = true; });
     listen(off, hero, "pointerleave", function () { inside = false; });
     listen(off, window, "blur", function () { duck = false; release(); });
-    listen(off, window, "resize", size);
+    var ro = null;
+    if ("ResizeObserver" in window) ro = new ResizeObserver(size); // also fires while the hero grows on Start
+    if (ro) ro.observe(hero); else listen(off, window, "resize", size);
 
     function theme() { render(); }
     themeListeners.push(theme);
@@ -974,9 +736,9 @@
 
     return function () {
       off.forEach(function (f) { f(); });
-      lp.stop(); if (io) io.disconnect();
+      lp.stop(); if (io) io.disconnect(); if (ro) ro.disconnect();
       themeListeners.splice(themeListeners.indexOf(theme), 1);
-      hero.classList.remove("is-game-dim");
+      hero.classList.remove("is-game-idle");
     };
   };
 
@@ -1106,12 +868,195 @@
     };
   };
 
+  /* =====================================================================
+     WALL — the photos from the second slide of the deck as a wall of slowly
+     drifting columns. They are black and white; hover one and it turns to colour.
+     ===================================================================== */
+  variants.wall = function () {
+    var off = [];
+    var COUNT = 24, TILE = 168, GAP = 8;
+    var wall = el("div", "pw");
+    under.appendChild(wall);
+    var visible = true;
+
+    function build() {
+      var w = hero.getBoundingClientRect().width;
+      var cols = Math.max(2, Math.round(w / (TILE + GAP)));
+      wall.textContent = "";
+      wall.style.setProperty("--cols", cols);
+      for (var c = 0; c < cols; c++) {
+        var col = el("div", "pw__col");
+        col.style.setProperty("--dur", (110 + (c * 37) % 60) + "s");
+        col.style.setProperty("--off", ((c * 23) % 40) + "%");
+        if (c % 2) col.classList.add("is-up");
+        var track = el("div", "pw__track");
+        for (var pass = 0; pass < 2; pass++) {            // twice, so the loop is seamless
+          for (var i = 0; i < 8; i++) {
+            var n = ((c * 5 + i * 3) % COUNT) + 1;
+            var img = el("img", "pw__tile");
+            img.src = "assets/hero-photos/p" + (n < 10 ? "0" : "") + n + ".jpg";
+            img.alt = ""; img.decoding = "async"; img.draggable = false;
+            img.loading = c < 4 ? "eager" : "lazy";
+            track.appendChild(img);
+          }
+        }
+        col.appendChild(track);
+        wall.appendChild(col);
+      }
+    }
+    var lastCols = 0;
+    function resize() {
+      var cols = Math.max(2, Math.round(hero.getBoundingClientRect().width / (TILE + GAP)));
+      if (cols !== lastCols) { lastCols = cols; build(); }
+    }
+    listen(off, window, "resize", resize);
+    var io = null;
+    if ("IntersectionObserver" in window) {
+      io = new IntersectionObserver(function (en) {
+        visible = en[0].isIntersecting;
+        wall.classList.toggle("is-paused", !visible);
+      });
+      io.observe(hero);
+    }
+    resize();
+    setHint(finePointer ? "Hover a photo for colour" : "");
+    return function () {
+      off.forEach(function (f) { f(); });
+      if (io) io.disconnect();
+    };
+  };
+
+  /* =====================================================================
+     TYPE — "Quinzi" as a typographic series: a contact sheet of tiles, each setting the
+     same word in a different, odd typeface or texture, black on white. Hover a tile to
+     invert it (the melting one melts), click to change its typeface; every few seconds
+     one tile changes on its own. Fonts come from Google Fonts, loaded only here.
+     ===================================================================== */
+  var TYPE_FONTS = "https://fonts.googleapis.com/css2?family=Monoton&family=Rubik+Glitch&family=Libre+Barcode+128+Text&family=Rubik+Wet+Paint&family=Climate+Crisis:YEAR@1979..2050&family=Sixtyfour&family=Tilt+Prism&family=Rubik+Maze&family=Bungee+Hairline&family=Bungee+Shade&family=Jacquard+24&family=Major+Mono+Display&family=Syne:wght@800&family=Instrument+Serif:ital@1&family=Rock+3D&family=Archivo:wght@900&family=Inter:wght@800&display=swap";
+  variants.type = function () {
+    var off = [];
+    if (!document.getElementById("lq-type-fonts")) {
+      var l = document.createElement("link");
+      l.id = "lq-type-fonts"; l.rel = "stylesheet"; l.href = TYPE_FONTS;
+      document.head.appendChild(l);
+    }
+    // key, label, font to wait for, height factor (for styles that stretch the word)
+    var STYLES = [
+      ["monoton", "Monoton", '"Monoton"', 1], ["glitch", "Rubik Glitch", '"Rubik Glitch"', 1],
+      ["serif", "Instrument Serif Italic", 'italic "Instrument Serif"', 1], ["barcode", "Libre Barcode 128", '"Libre Barcode 128 Text"', 1],
+      ["melt", "Climate Crisis", '"Climate Crisis"', 1], ["outline", "Inter Outline", '800 "Inter"', 1],
+      ["pixel", "Sixtyfour", '"Sixtyfour"', 1], ["black", "Jacquard 24", '"Jacquard 24"', 1],
+      ["stripes", "Archivo Stripes", '900 "Archivo"', 1], ["prism", "Tilt Prism", '"Tilt Prism"', 1],
+      ["wet", "Rubik Wet Paint", '"Rubik Wet Paint"', 1], ["maze", "Rubik Maze", '"Rubik Maze"', 1],
+      ["hair", "Bungee Hairline", '"Bungee Hairline"', 1], ["shade", "Bungee Shade", '"Bungee Shade"', 1],
+      ["mono", "Major Mono Display", '"Major Mono Display"', 1], ["syne", "Syne Stretched", '800 "Syne"', 1.7],
+      ["echo", "Archivo Echo", '900 "Archivo"', 1], ["halftone", "Archivo Halftone", '900 "Archivo"', 1],
+      ["rock", "Rock 3D", '"Rock 3D"', 1]
+    ];
+    var grid = el("div", "ty");
+    under.appendChild(grid);
+    var tiles = [], cols = 0, rows = 0, shown = [];
+
+    function layoutDims() {
+      var w = hero.getBoundingClientRect().width;
+      cols = w >= 1200 ? 5 : w >= 900 ? 4 : w >= 600 ? 3 : 2;
+      rows = cols >= 3 ? 2 : 3;
+    }
+    function setStyle(tile, i) {
+      var st = STYLES[i];
+      tile.dataset.style = i;
+      var word = tile.querySelector(".ty__word");
+      word.className = "ty__word ty-" + st[0];
+      tile.querySelector(".ty__name").textContent = st[1];
+      fit(tile);
+      word.classList.remove("is-in"); void word.offsetWidth; word.classList.add("is-in");
+    }
+    function fit(tile) {
+      var word = tile.querySelector(".ty__word"), st = STYLES[+tile.dataset.style];
+      word.style.fontSize = "100px";
+      var w = word.offsetWidth || 1, h = word.offsetHeight || 1;
+      var k = Math.min((tile.clientWidth * 0.8) / w, (tile.clientHeight * 0.55) / (h * st[3]));
+      word.style.fontSize = Math.max(10, Math.floor(100 * k)) + "px";
+    }
+    function build() {
+      layoutDims();
+      var n = cols * rows, tileW = hero.getBoundingClientRect().width / cols;
+      grid.textContent = ""; tiles = [];
+      grid.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
+      grid.style.gridTemplateRows = "repeat(" + rows + ", 1fr)";
+      hero.style.minHeight = Math.round(rows * tileW * 0.95) + "px";
+      for (var i = 0; i < n; i++) {
+        var t = el("button", "ty__tile",
+          '<span class="ty__cap">Typography.26<br><span class="ty__name"></span></span>' +
+          '<span class="ty__no">' + (i < 9 ? "0" : "") + (i + 1) + "</span>" +
+          '<span class="ty__word" aria-hidden="true">Quinzi</span>');
+        t.type = "button"; t.setAttribute("aria-label", "Quinzi, typeface " + (i + 1) + ". Press to change the typeface.");
+        t.dataset.style = i % STYLES.length;
+        grid.appendChild(t); tiles.push(t);
+        (function (tile) {
+          tile.addEventListener("click", function () { setStyle(tile, nextFree(+tile.dataset.style, tile)); });
+        })(t);
+      }
+      tiles.forEach(function (t) { setStyle(t, +t.dataset.style); });
+    }
+    function fitAll() { tiles.forEach(fit); }
+    // the next typeface after `from` that no other tile is showing
+    function nextFree(from, skip) {
+      var used = {};
+      tiles.forEach(function (t) { if (t !== skip) used[t.dataset.style] = true; });
+      for (var k = 1; k <= STYLES.length; k++) {
+        var c = (from + k + (skip ? Math.floor(Math.random() * 4) : 0)) % STYLES.length;
+        if (!used[c]) return c;
+      }
+      return (from + 1) % STYLES.length;
+    }
+
+    build();
+    var fontsReady = Promise.all(STYLES.map(function (st) { return document.fonts ? document.fonts.load("48px " + st[2], "Quinzi") : null; }));
+    fontsReady.then(fitAll, fitAll);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+    if (document.fonts && document.fonts.addEventListener) { document.fonts.addEventListener("loadingdone", fitAll); off.push(function () { document.fonts.removeEventListener("loadingdone", fitAll); }); }
+
+    var ro = null, last = hero.getBoundingClientRect().width;
+    if ("ResizeObserver" in window) {
+      ro = new ResizeObserver(function () {
+        var w = hero.getBoundingClientRect().width;
+        if (Math.abs(w - last) < 1) return; last = w;
+        var oc = cols; layoutDims(); if (cols !== oc) build(); else fitAll();
+      });
+      ro.observe(hero);
+    }
+
+    // every so often one tile changes its typeface on its own
+    var timer = null, visible = true;
+    if (!reduceMotion) {
+      timer = setInterval(function () {
+        if (!visible || document.hidden || !tiles.length) return;
+        var t = tiles[Math.floor(Math.random() * tiles.length)];
+        if (t.matches(":hover")) return;
+        setStyle(t, nextFree(+t.dataset.style, t));
+      }, 2400);
+    }
+    var io = null;
+    if ("IntersectionObserver" in window) {
+      io = new IntersectionObserver(function (en) { visible = en[0].isIntersecting; });
+      io.observe(hero);
+    }
+    setHint(finePointer ? "Click a tile to change its typeface" : "Tap a tile to change its typeface");
+
+    return function () {
+      off.forEach(function (f) { f(); });
+      if (timer) clearInterval(timer); if (ro) ro.disconnect(); if (io) io.disconnect();
+      hero.style.minHeight = "";
+    };
+  };
+
   /* ---------- switcher + boot ---------- */
   var cleanup = null;
   var buttons = switcher ? Array.prototype.slice.call(switcher.querySelectorAll("[data-hero-variant]")) : [];
 
   function setVariant(name, persist) {
-    if (!variants[name]) name = "photo";
+    if (!variants[name]) name = "wall";
     if (cleanup) { try { cleanup(); } catch (e) { /* ignore */ } cleanup = null; }
     under.textContent = ""; over.textContent = "";
     hero.setAttribute("data-variant", name);
@@ -1134,12 +1079,12 @@
     b.addEventListener("click", function () { setVariant(b.getAttribute("data-hero-variant"), true); });
   });
 
-  var start = "photo";
+  var start = "wall";
   try {
     var q = new URLSearchParams(window.location.search).get("hero");
     var saved = null;
     try { saved = localStorage.getItem("lq-hero"); } catch (e) { /* ignore */ }
-    start = (q && variants[q]) ? q : (saved && variants[saved]) ? saved : "photo";
+    start = (q && variants[q]) ? q : (saved && variants[saved]) ? saved : "wall";
   } catch (e) { /* ignore */ }
   setVariant(start, false);
 })();

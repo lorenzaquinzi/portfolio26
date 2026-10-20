@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Island — Circuit — Lorenza Quinzi</title>
+  <meta name="description" content="Circuit (now Spoke): a Dynamic Island and Live Activity that lets iOS drivers multitask during their routes. Lead designer — design, prototype, handoff and QA." />
+  <meta name="author" content="Lorenza Quinzi" />
+  <meta property="og:title" content="Dynamic Island — Circuit — Lorenza Quinzi" />
+  <meta property="og:description" content="Drivers using iOS can now easily multitask during their routes." />
+  <meta property="og:type" content="article" />
+  <meta name="theme-color" content="#F9F9F7" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext x='50' y='68' font-family='Arial, sans-serif' font-size='58' font-weight='700' fill='%23F9F9F7' text-anchor='middle'%3ELQ%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="index-nav" aria-label="Primary">
+    <a class="index-nav__logo" href="index.html">Lorenza Quinzi</a>
+    <div class="index-nav__links">
+      <a href="index.html#work" aria-current="page">Selected Work</a>
+      <a href="experience.html">Experience</a>
+      <a href="about.html">About</a>
+      <a href="#contact">Contact</a>
+      <button class="index-nav__theme" data-theme-toggle type="button" aria-pressed="false">
+        <span class="disc" aria-hidden="true"></span>
+        <span class="sr-only" data-theme-label>Dark mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main" class="cs2">
+
+    <!-- Title + summary -->
+    <header class="cs2-head">
+      <div class="cs2-head__title">
+        <h1>Dynamic Island</h1>
+        <ul class="cs2-tags" aria-label="Disciplines">
+          <li>iOS</li>
+          <li>Product Design</li>
+          <li>Prototyping</li>
+          <li>Handoff &amp; QA</li>
+        </ul>
+      </div>
+      <div class="cs2-head__body">
+        <p class="cs2-lede">Drivers using iOS can now easily multitask during their routes.</p>
+        <p>Good example of a feature that uses a new technology and brings a delightful experience to the users.</p>
+        <dl class="cs2-meta">
+          <div><dt>Company</dt><dd>Circuit (now Spoke)</dd></div>
+          <div><dt>Role</dt><dd>Lead designer. Design, prototype, handoff and QA.</dd></div>
+          <div><dt>Platform</dt><dd>iOS</dd></div>
+          <div><dt>Target users</dt><dd>Drivers that use other apps to help with their job, like a company-provided app to track packages and deliveries.</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="opportunity">
+      <div class="cs2-sec__text">
+        <h2 id="opportunity">Opportunity</h2>
+        <p>Offer a delightful experience for iOS users by experimenting with new technologies and design patterns.</p>
+        <p>Improve relationship with Apple by making Circuit&rsquo;s app more functional inside their system.</p>
+      </div>
+      <div class="cs2-stage cs2-stage--icons">
+        <img src="assets/dynamic-island/opp-appstore.webp" width="512" height="512" loading="lazy" alt="Apple App Store icon" />
+        <img src="assets/dynamic-island/opp-circuit.webp" width="512" height="512" loading="lazy" alt="Circuit app icon" />
+      </div>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="minimize">
+      <div class="cs2-sec__text">
+        <h2 id="minimize">Minimize app</h2>
+        <p>A dynamic island that displays key information about the driver&rsquo;s next stop after they minimize Circuit&rsquo;s app.</p>
+      </div>
+      <figure class="cs2-stage">
+        <video class="cs2-media" data-clip muted loop playsinline preload="none"
+               poster="assets/dynamic-island/minimize.jpg"
+               aria-label="Screen recording: minimizing the app shows the Dynamic Island with the next stop.">
+          <source src="assets/dynamic-island/minimize.mp4" type="video/mp4" />
+        </video>
+      </figure>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="navigating">
+      <div class="cs2-sec__text">
+        <h2 id="navigating">Navigating to a stop</h2>
+        <p>Driver sees a live ETA if they are currently navigating to a stop.</p>
+      </div>
+      <div class="cs2-stage cs2-stage--stack">
+        <img class="cs2-strip" src="assets/dynamic-island/nav-a.webp" width="1124" height="580" loading="lazy" alt="Dynamic Island expanded: navigating to R. dos Pinheiros with a live ETA and Failed / Delivered buttons." />
+        <img class="cs2-strip" src="assets/dynamic-island/nav-b.webp" width="1124" height="580" loading="lazy" alt="Dynamic Island minimized: stop pin and 4 min ETA." />
+      </div>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="done">
+      <div class="cs2-sec__text">
+        <h2 id="done">Marking a stop as done</h2>
+        <p>Drivers can mark stops as delivered or failed directly from the island. There&rsquo;s an animation that confirms the action and moves to the next stop.</p>
+      </div>
+      <figure class="cs2-stage">
+        <video class="cs2-media" data-clip muted loop playsinline preload="none"
+               poster="assets/dynamic-island/done.jpg"
+               aria-label="Screen recording: marking a stop as delivered from the Dynamic Island, with a confirmation animation.">
+          <source src="assets/dynamic-island/done.mp4" type="video/mp4" />
+        </video>
+      </figure>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="breaks">
+      <div class="cs2-sec__text">
+        <h2 id="breaks">Breaks</h2>
+        <p>If the next stop is a break, a different island will appear, allowing drivers to mark the break as taken or failed.</p>
+      </div>
+      <div class="cs2-stage cs2-stage--stack">
+        <img class="cs2-strip" src="assets/dynamic-island/brk-a.webp" width="1124" height="580" loading="lazy" alt="Dynamic Island expanded for a break: Skip break and Took break buttons." />
+        <img class="cs2-strip" src="assets/dynamic-island/brk-b.webp" width="1124" height="580" loading="lazy" alt="Dynamic Island minimized for a break: coffee icon and 30 min." />
+      </div>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="complete">
+      <div class="cs2-sec__text">
+        <h2 id="complete">Marking a route as complete</h2>
+        <p>At the end of the route, the island displays a button to complete it without reopening the app. Pressing the button will automatically close the island.</p>
+      </div>
+      <figure class="cs2-stage">
+        <video class="cs2-media" data-clip muted loop playsinline preload="none"
+               poster="assets/dynamic-island/complete.jpg"
+               aria-label="Screen recording: completing the route from the Dynamic Island at the end of the route.">
+          <source src="assets/dynamic-island/complete.mp4" type="video/mp4" />
+        </video>
+      </figure>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="pins">
+      <div class="cs2-sec__text">
+        <h2 id="pins">Live pins</h2>
+        <p>Drivers can configure stop pins in the app, such as its colors or if it&rsquo;s a deliver or pickup. Those configurations are always reflected in the island.</p>
+      </div>
+      <div class="cs2-stage cs2-stage--stack">
+        <img class="cs2-strip" src="assets/dynamic-island/pin-a.webp" width="1124" height="580" loading="lazy" alt="Island with a green stacked-stop pin: Failed and Delivered buttons." />
+        <img class="cs2-strip" src="assets/dynamic-island/pin-b.webp" width="1124" height="580" loading="lazy" alt="Island with a purple pickup pin: Failed and Picked up buttons." />
+        <img class="cs2-strip" src="assets/dynamic-island/pin-c.webp" width="1124" height="580" loading="lazy" alt="Island with a pink pin: Failed and Delivered buttons." />
+      </div>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="map">
+      <div class="cs2-sec__text">
+        <h2 id="map">Map</h2>
+        <p>The initial goal was to display a live map, but performance issues led to using a generic image instead. There are light and dark versions to match the running app.</p>
+      </div>
+      <div class="cs2-stage cs2-stage--stack">
+        <img class="cs2-strip" src="assets/dynamic-island/map-a.webp" width="1124" height="580" loading="lazy" alt="Island with the generic map image in its dark version." />
+        <img class="cs2-strip" src="assets/dynamic-island/map-b.webp" width="1124" height="580" loading="lazy" alt="Island with the generic map image in its light version." />
+      </div>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="live">
+      <div class="cs2-sec__text">
+        <h2 id="live">Live activities</h2>
+        <p>The dynamic island widget also functions as a live activity, keeping drivers informed about their route even when the phone is locked.</p>
+      </div>
+      <figure class="cs2-stage">
+        <video class="cs2-media" data-clip muted loop playsinline preload="none"
+               poster="assets/dynamic-island/live.jpg"
+               aria-label="Screen recording: the same widget as a Live Activity on the lock screen.">
+          <source src="assets/dynamic-island/live.mp4" type="video/mp4" />
+        </video>
+      </figure>
+    </section>
+
+    <section class="cs2-sec cs2-sec--wide" data-reveal aria-labelledby="highlights">
+      <div class="cs2-sec__text">
+        <h2 id="highlights">Highlights</h2>
+      </div>
+      <ul class="cs2-points cs2-points--2"><li>Designing this was a big challenge due to the layout constraints for the dynamic island.</li><li>I&rsquo;ve experimented it with code to understand it better.</li></ul>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="impact">
+      <div class="cs2-sec__text">
+        <h2 id="impact">Impact</h2>
+        <p>Highlighted on the App Store which increased awareness of Circuit&rsquo;s app.</p>
+      </div>
+      <figure class="cs2-stage cs2-stage--plain"><img class="cs2-wide" src="assets/dynamic-island/impact.webp" width="828" height="480" loading="lazy" alt="Circuit featured on the App Store." /></figure>
+    </section>
+
+  </main>
+
+  <a class="cs-next" href="case-study-driver-profile.html">
+    <span>
+      <span class="cs-next__label eyebrow">Next project</span>
+      <span class="cs-next__title">Driver Profile — Circuit</span>
+    </span>
+    <span aria-hidden="true">→</span>
+  </a>
+
+  <footer class="footer" id="contact">
+    <h2 class="footer__title">Let&rsquo;s build something that works.</h2>
+    <a class="footer__email" href="mailto:lorenzaquinzi@gmail.com">lorenzaquinzi@gmail.com</a>
+
+    <a class="footer__now-playing" data-now-playing href="#" target="_blank" rel="noopener" hidden>
+      <span class="footer__now-playing-dot" aria-hidden="true"></span>
+      <span data-now-playing-label>Now playing</span>
+      <span data-now-playing-track></span>
+    </a>
+
+    <div class="footer__links">
+      <div class="footer__socials">
+        <a href="https://www.linkedin.com/in/lorenzaquinzi" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.instagram.com/lorenzaquinzi" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+      <p class="footer__meta">© <span data-year>2026</span> Lorenza Quinzi</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

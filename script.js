@@ -144,3 +144,50 @@
     setInterval(fetchNowPlaying, npPollMs);
   }
 })();
+
+/* Case-study clips: phone recordings play (muted, looped) only while on screen,
+   and have a play / pause button. With reduced motion they stay on their poster
+   frame until you press play. */
+(function () {
+  "use strict";
+  var clips = document.querySelectorAll("video[data-clip]");
+  if (!clips.length) return;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  clips.forEach(function (v) {
+    var stage = v.parentNode;
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "cs2-clip-btn";
+    stage.appendChild(btn);
+
+    var userPaused = reduce; // reduced motion: start paused
+    function sync() {
+      var paused = v.paused;
+      btn.classList.toggle("is-paused", paused);
+      btn.textContent = paused ? "▶" : "❚❚";
+      btn.setAttribute("aria-label", paused ? "Play video" : "Pause video");
+    }
+    function play() {
+      var p = v.play();
+      if (p && p.catch) p.catch(function () { /* autoplay blocked: poster stays */ });
+    }
+    btn.addEventListener("click", function () {
+      if (v.paused) { userPaused = false; play(); } else { userPaused = true; v.pause(); }
+    });
+    v.addEventListener("play", sync);
+    v.addEventListener("pause", sync);
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && !userPaused) play();
+          else if (!e.isIntersecting) v.pause();
+        });
+      }, { threshold: 0.35 }).observe(v);
+    } else if (!userPaused) {
+      play();
+    }
+    sync();
+  });
+})();
