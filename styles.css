@@ -248,13 +248,19 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 .index-nav__logo {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
   color: var(--fg);
   white-space: nowrap;
+}
+.index-nav__mark {
+  display: block;
+  height: 38px;
+  aspect-ratio: 1418 / 744;
+  background-color: currentColor;
+  -webkit-mask: url("assets/logo/lolo-logo.svg") center / contain no-repeat;
+  mask: url("assets/logo/lolo-logo.svg") center / contain no-repeat;
 }
 
 .index-nav__links {
@@ -1129,7 +1135,7 @@ html:has(.cs2--slides) .index-nav { scroll-snap-align: start; }
 .cs2-panel .cs2-phones--wide img { flex: none; width: 100%; height: auto; }
 
 /* Experience: education */
-.exp-edu { margin-top: clamp(40px, 6vw, 72px); }
+.exp-edu { margin-top: clamp(48px, 7vw, 88px); }
 .exp-edu__title { margin: 0 0 14px; font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--muted); }
 .exp-edu__list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
 .exp-edu__list li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 24px; padding: 20px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
@@ -1137,16 +1143,9 @@ html:has(.cs2--slides) .index-nav { scroll-snap-align: start; }
 .exp-edu__where { font-size: 16px; color: var(--muted); }
 @media (max-width: 860px) { .exp-edu__list li { grid-template-columns: minmax(0, 1fr); } }
 
-/* About: the details table sits at the bottom of the photo, with no divider above its first row */
-.about-grid { align-items: stretch; }
+/* About: the details table follows the text, with no divider above its first row */
 @media (min-width: 861px) {
   .about-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
-  .about-grid__portrait { align-self: stretch; aspect-ratio: auto; min-height: 420px; } /* as tall as the text column, so the table lines up with the bottom of the photo */
 }
-.about-copy { display: flex; flex-direction: column; }
-.about-facts { margin-top: auto; padding-top: 36px; }
+.about-facts { margin-top: 36px; }
 .about-facts > div:first-child { border-top: 0; padding-top: 0; }
-@media (max-width: 860px) {
-  .about-facts { margin-top: 36px; padding-top: 0; }
-  .about-grid__portrait { align-self: start; aspect-ratio: 4 / 5; min-height: 0; }
-}
