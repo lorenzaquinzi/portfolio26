@@ -21,31 +21,41 @@ a GitHub Actions workflow — see **Now Playing (Spotify)** below.
   (inside `.cs-cover` or `.about-grid__portrait`, `styles.css` already makes it fill the box).
   Always write a real `alt`.
 - The home page's "Selected Work" is a plain list of 4 entries (no thumbnails), all adapted from your Figma
-  presentation: **Address Scanner**, **Dynamic Island** and **Driver Profile** (Circuit, now Spoke) have a page each; **Other projects** is one page with the five smaller ones: **Redesign: Edit stop view** and **Redesign: Menu** (Circuit), **Bill 2.0** (Lemon Energy), **íon** and **NBA Live game experience** (Work & Co).
-- The home page hero is a **test with six interchangeable variants** (all placeholders):
-  **Skate** (a free-roaming skateboard that rides the headline's letters as solid terrain when the
-  cursor goes over them), **Game** (a Chrome-dino-style endless runner: skate down a street and jump
-  the obstacles with space / ↑ / click / tap; press Start first), **Spotify** (the hero glows in your
-  current song's cover colours, with the cover spinning like a record), **Dots** (the original dot
-  field), **Type** ("Quinzi" set in many odd typefaces as a typographic series: one big tile filling the hero, black on white; hover inverts it, click changes the typeface, and it changes on its own every few seconds; fonts come from Google Fonts only for this variant) and **Photo wall** (the 24 photos from the deck's second slide in `assets/hero-photos/`, as
-  slowly drifting black-and-white columns that turn to colour on hover; this is the default). Switch
-  with the pill in the hero or `?hero=skate|game|spotify|dots|wall|type` in the URL. Code: `hero.js` +
-  `hero.css`. When you pick one variant, delete the others from `variants` in `hero.js` (and their
-  blocks in `hero.css`), then remove the switcher + "Placeholder — hero test" tag from `index.html`.
-  The Spotify variant shows clearly labelled demo data until the site is on GitHub Pages with the
-  Spotify secrets set (see **Now Playing (Spotify)**).
-- There is no social-share image yet (no `og:image` tag). When you have one,
-  export it at 1200×630, save it in `assets/`, and add
-  `<meta property="og:image" content="https://YOUR-ADDRESS/assets/og-image.jpg" />`
-  to the `<head>` of each page — it must be a full `https://` address.
+  presentation: **Address Scanner**, **Dynamic Island** and **Driver Profile** (Spoke, formerly Circuit) have a page each; **Other projects** is one page of snippets from projects without a full case study (not "smaller projects"): **Redesign: Edit stop view** and **Redesign: Menu** (Circuit), **Bill 2.0** (Lemon Energy), and **íon** (Work & Co).
+- The home page has **no hero for now**: it opens on two big lines, "Hey, I'm Lorenza." / "UX Designer at Google." ("Google" links to google.com; it's the `<h1>`, `.intro` in `styles.css`), then
+  the "Selected Work" list.
+- Earlier work that was removed is archived (not published) in `archive/`: `hero-variants/` (skate, game, colour-glow
+  Spotify, dots, photo wall, typography series, plus the 24 wall photos), `hero-sound/` (black, white and grain, with
+  a waveform from the song playing now), `hero-search/` (the inline search hero) and `search/` (the on-device AI site
+  search that lived behind a header icon). Each folder has a README on bringing it back.
 
-Look for the lilac **"Placeholder"** tag on images and `[Placeholder]`
-in copy to find everything that still needs your real content.
+## Interaction system (what is tappable, and how you can tell)
+
+Every tappable thing on the site is one of six patterns, so people learn the rules once. The same rules are
+written at the bottom of `styles.css` ("INTERACTION SYSTEM"). If you add something new, make it fit one of these.
+
+| # | Pattern | How it looks | Used for |
+| - | ------- | ------------ | -------- |
+| 1 | **Text link** | One style for every link inside a string: a **dotted underline** (same weight scale, offset and colour as the text). Hover: the underline turns solid and the text goes muted. No bold, colour or icon, whether it stays on the site or opens a new tab. Exception: the link inside the homepage headline is plain until hovered, then underlined, like the project titles below it. | "Google" in the headline, company names on Experience, the project index on Other projects, the About contact row |
+| 2 | **Link group** | No underline (the position says "link"). Hover: muted. In the nav, an underline marks the **current page**. | Header nav, logo, footer links, now-playing |
+| 3 | **Block link** | The whole row is the target and ends in an arrow (→ stays here, ↗ leaves). Hover/focus: the arrow nudges right and the title is underlined. | Selected-work rows, "Next project" |
+| 4 | **Button / action** | A real `<button>` or an action link. Icon buttons have a 44px hit area on touch. **Email** copies the address and says "Copied" (it falls back to a normal `mailto:` if copying fails). | Theme toggle, play/pause on videos, Email |
+| 5 | **Chip** | **Outlined** pill = tappable. **Filled pill with no outline** = a label, never tappable. | Filled: project tags, "Before/After" and "Redesign" panel names. (No outlined chips on the site right now.) |
+| 6 | **Disclosure** | A row with a chevron that turns. | Experience |
+
+Always the same: `cursor: pointer` on everything tappable and nothing else; the cursor dot grows over the same set
+(including things added later); one focus ring (2px blue) everywhere; every control reaches
+44px on touch screens without changing how it looks.
+
+Where it lives: the rules are in `styles.css` (end of the file), the copy-email action and the cursor dot are in
+`script.js`. The check we used: for every page, list every `a`, `button` and `summary` with its underline style and
+cursor, and every outlined pill that is *not* tappable. The result must be: every text link has the same dotted
+underline, link groups have none, nothing outlined that isn't a control.
 
 ## Now Playing (Spotify)
 
 The footer shows a small "Now playing" / "Last played" line with your
-current Spotify track, and the hero's **Spotify** variant uses the same data.
+current Spotify track.
 There's no server: a GitHub Actions workflow
 (`.github/workflows/pages.yml`) runs about every 5 minutes, asks Spotify what
 you're listening to using credentials stored as **GitHub secrets** (they never
@@ -120,7 +130,7 @@ What to expect:
 
 If the secrets are missing or Spotify can't be reached, the workflow still
 deploys and just writes an empty `now-playing.json`: the footer line stays
-hidden and the Spotify hero shows its labelled demo data. Locally
+hidden. Locally
 (`python3 -m http.server`) there's no `now-playing.json`, so you'll see the same.
 
 ## How the case studies are wired
@@ -149,13 +159,10 @@ The other pages use the same structure, with these extra layouts (all `cs2-*` cl
 (`cs2-shot`), captioned phone pairs, a video playing inside a phone frame (íon) and a video with
 sound and controls (the Driver Profile pitch). Their pages, in order (each page's "Next project"
 link follows this order): `case-study-address-scanner.html` → `case-study-dynamic-island.html` →
-`case-study-driver-profile.html` → `case-study-other-projects.html` (five projects on one page: it snaps from slide to slide, one project per screen, and each project's parts are a small carousel with arrows (and a counter), swipe and ← / → keys).
+`case-study-driver-profile.html` → `case-study-other-projects.html` (four projects on one page: it snaps from slide to slide, one project per screen, and each project's parts are a small carousel with arrows (and a counter), swipe and ← / → keys).
 
-Where the media came from (all under `assets/<project>/`): videos were matched to the deck by file
+Where the media came from (all under `assets/<project>/`; the Bill 2.0 "After" phone is a scroll recording rendered from an export of the full-length bill screen in Figma, played inside the same phone mockup as the íon clip, `assets/device/phone-frame.webp`, with the same play/pause control): videos were matched to the deck by file
 hash and compressed with ffmpeg; the mockups are renders of the deck's slides.
-**Not on the site yet:** the "dance-cam" video of the NBA project's Dance & Kiss cam — it isn't
-on this computer, so that section shows the two widget screens only.
-
 ## The `/scripts` folder
 
 `scripts/make_placeholders.py` and `scripts/make_case_studies.py` are the
@@ -219,7 +226,7 @@ git push -u origin main
 ```
 
 The workflow publishes only the site files (`*.html`, `styles.css`,
-`hero.css`, `script.js`, `hero.js`, `assets/`) — not this README, the
+`script.js`, `assets/`) — not this README, the
 `scripts/` folder or anything under `.github/`. If you add a new top-level
 file the site needs (say a `favicon.ico`), add it to the `cp` line in
 `.github/workflows/pages.yml`.

@@ -44,13 +44,14 @@
     var io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
+          // a very tall section can never show 12% of itself on a short screen, so also accept 160px
+          if (entry.isIntersecting && (entry.intersectionRatio >= 0.12 || entry.intersectionRect.height >= 160)) {
             entry.target.classList.add("is-visible");
             io.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: [0, 0.05, 0.12, 0.3], rootMargin: "0px 0px -40px 0px" }
     );
     revealEls.forEach(function (el) { io.observe(el); });
   } else {
@@ -60,6 +61,51 @@
   /* ---------- Current year in footer ---------- */
   var yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  /* ---------- Email: a copy action, not a mailto ----------
+     Anywhere an [data-copy-email] link appears it copies the address and says "Copied".
+     Without JS (or if copying fails) it still falls back to the normal mailto link. */
+  var copyLinks = document.querySelectorAll("[data-copy-email]");
+  if (copyLinks.length) {
+    var live = document.createElement("span");
+    live.className = "vh-live";
+    live.setAttribute("role", "status");
+    document.body.appendChild(live);
+
+    var copyText = function (text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text).then(function () { return true; }, function () { return false; });
+      }
+      return new Promise(function (resolve) {
+        var ta = document.createElement("textarea");
+        ta.value = text; ta.setAttribute("readonly", "");
+        ta.style.cssText = "position:fixed;top:-100px;opacity:0";
+        document.body.appendChild(ta); ta.select();
+        var ok = false;
+        try { ok = document.execCommand("copy"); } catch (err) { ok = false; }
+        ta.remove(); resolve(ok);
+      });
+    };
+
+    copyLinks.forEach(function (a) {
+      var addr = (a.getAttribute("href") || "").replace(/^mailto:/, "");
+      var timer = null;
+      a.setAttribute("role", "button");
+      a.setAttribute("aria-label", "Copy email address");
+      a.title = "Copy " + addr;
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        copyText(addr).then(function (ok) {
+          if (!ok) { window.location.href = "mailto:" + addr; return; }
+          a.classList.add("is-copied");
+          live.textContent = "";
+          setTimeout(function () { live.textContent = "Email address copied"; }, 30);
+          clearTimeout(timer);
+          timer = setTimeout(function () { a.classList.remove("is-copied"); }, 1800);
+        });
+      });
+    });
+  }
 
   /* ---------- Custom cursor dot (fine pointers, motion allowed) ---------- */
   var cursor = document.querySelector("[data-cursor-dot]");
@@ -88,10 +134,11 @@
       raf = requestAnimationFrame(tick);
     }
 
-    var hoverTargets = document.querySelectorAll("a, button, [data-cursor-hover]");
-    hoverTargets.forEach(function (el) {
-      el.addEventListener("mouseenter", function () { cursor.classList.add("is-hovering"); });
-      el.addEventListener("mouseleave", function () { cursor.classList.remove("is-hovering"); });
+    // The dot grows over anything tappable (same set the CSS gives cursor: pointer),
+    // including elements added later.
+    var TAPPABLE = "a[href], button:not(:disabled), summary, [role=button], [data-cursor-hover]";
+    document.addEventListener("mouseover", function (e) {
+      cursor.classList.toggle("is-hovering", !!(e.target.closest && e.target.closest(TAPPABLE)));
     });
   } else if (cursor) {
     cursor.style.display = "none";

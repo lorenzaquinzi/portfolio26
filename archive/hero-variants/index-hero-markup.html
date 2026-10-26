@@ -1,0 +1,21 @@
+    <!-- Full-width interactive hero — TEST: four interchangeable variants live in
+         hero.js / hero.css (skate, game, spotify, dots, wall). The switcher below and
+         the placeholder tag are temporary; remove them once one variant wins. -->
+    <section class="hero" data-hero aria-label="Introduction">
+      <div class="hero__layer hero__layer--under" data-hero-under></div>
+      <span class="work-item__placeholder-tag">Placeholder — hero test</span>
+      <div class="hero-switcher" data-hero-switcher role="group" aria-label="Hero variant (testing only)">
+        <button type="button" data-hero-variant="skate" aria-pressed="false">Skate</button>
+        <button type="button" data-hero-variant="game" aria-pressed="false">Game</button>
+        <button type="button" data-hero-variant="spotify" aria-pressed="false">Spotify</button>
+        <button type="button" data-hero-variant="dots" aria-pressed="false">Dots</button>
+        <button type="button" data-hero-variant="wall" aria-pressed="false">Photo wall</button>
+        <button type="button" data-hero-variant="type" aria-pressed="false">Type</button>
+      </div>
+      <div class="hero__content">
+        <h1 class="hero__title">Hi, I&rsquo;m Lorenza</h1>
+        <p class="hero__sub">UX Designer at Google · 10+ years shipping products</p>
+      </div>
+      <div class="hero__layer hero__layer--over" data-hero-over></div>
+      <p class="hero__hint" data-hero-hint></p>
+    </section>

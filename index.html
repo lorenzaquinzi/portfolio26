@@ -9,7 +9,7 @@
   <meta name="keywords" content="product design, ux, ui, design portfolio, São Paulo, Google" />
 
   <meta property="og:title" content="Lorenza Quinzi — Product Designer" />
-  <meta property="og:description" content="Hi, I’m Lorenza: a product designer in São Paulo, currently at Google, designing what comes next with optimism and care." />
+  <meta property="og:description" content="Hey, I’m Lorenza. UX Designer at Google." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#F9F9F7" />
 
@@ -19,7 +19,6 @@
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext x='50' y='68' font-family='Arial, sans-serif' font-size='58' font-weight='700' fill='%23F9F9F7' text-anchor='middle'%3ELQ%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="hero.css" />
 </head>
 <body>
 
@@ -44,26 +43,11 @@
 
     <div id="top"></div>
 
-    <!-- Full-width interactive hero — TEST: four interchangeable variants live in
-         hero.js / hero.css (skate, game, spotify, dots, wall). The switcher below and
-         the placeholder tag are temporary; remove them once one variant wins. -->
-    <section class="hero" data-hero aria-label="Introduction">
-      <div class="hero__layer hero__layer--under" data-hero-under></div>
-      <span class="work-item__placeholder-tag">Placeholder — hero test</span>
-      <div class="hero-switcher" data-hero-switcher role="group" aria-label="Hero variant (testing only)">
-        <button type="button" data-hero-variant="skate" aria-pressed="false">Skate</button>
-        <button type="button" data-hero-variant="game" aria-pressed="false">Game</button>
-        <button type="button" data-hero-variant="spotify" aria-pressed="false">Spotify</button>
-        <button type="button" data-hero-variant="dots" aria-pressed="false">Dots</button>
-        <button type="button" data-hero-variant="wall" aria-pressed="false">Photo wall</button>
-        <button type="button" data-hero-variant="type" aria-pressed="false">Type</button>
-      </div>
-      <div class="hero__content">
-        <h1 class="hero__title">Hi, I&rsquo;m Lorenza</h1>
-        <p class="hero__sub">UX Designer at Google · 10+ years shipping products</p>
-      </div>
-      <div class="hero__layer hero__layer--over" data-hero-over></div>
-      <p class="hero__hint" data-hero-hint></p>
+    <section class="intro" aria-label="Introduction">
+      <h1 class="intro__title">
+        <span>Hey, I&rsquo;m Lorenza.</span>
+        <span>UX&nbsp;Designer at <a class="intro__link" href="https://www.google.com/" target="_blank" rel="noopener noreferrer">Google</a>.</span>
+      </h1>
     </section>
 
     <section class="index-section" id="work" aria-label="Selected work">
@@ -74,32 +58,32 @@
         <li class="work-list__item" data-reveal>
           <a href="case-study-address-scanner.html">
             <span class="work-list__title">Address Scanner</span>
-            <span class="work-list__meta">Circuit</span>
-            <span class="work-list__year">2023–2024</span>
+            <span class="work-list__meta">Spoke</span>
+            <span class="work-list__status">Shipped <span aria-hidden="true">🚀</span></span>
             <span class="work-list__arrow" aria-hidden="true">→</span>
           </a>
         </li>
         <li class="work-list__item" data-reveal>
           <a href="case-study-dynamic-island.html">
             <span class="work-list__title">Dynamic Island</span>
-            <span class="work-list__meta">Circuit</span>
-            <span class="work-list__year">2023–2024</span>
+            <span class="work-list__meta">Spoke</span>
+            <span class="work-list__status">Shipped <span aria-hidden="true">🚀</span></span>
             <span class="work-list__arrow" aria-hidden="true">→</span>
           </a>
         </li>
         <li class="work-list__item" data-reveal>
           <a href="case-study-driver-profile.html">
             <span class="work-list__title">Driver Profile</span>
-            <span class="work-list__meta">Circuit</span>
-            <span class="work-list__year">Concept</span>
+            <span class="work-list__meta">Spoke</span>
+            <span class="work-list__status">Concept</span>
             <span class="work-list__arrow" aria-hidden="true">→</span>
           </a>
         </li>
         <li class="work-list__item" data-reveal>
           <a href="case-study-other-projects.html">
             <span class="work-list__title">Other projects</span>
-            <span class="work-list__meta">Circuit, Lemon Energy, Work &amp; Co</span>
-            <span class="work-list__year">Various</span>
+            <span class="work-list__meta">Spoke, Lemon Energy, Work &amp; Co</span>
+            <span class="work-list__status"></span>
             <span class="work-list__arrow" aria-hidden="true">→</span>
           </a>
         </li>
@@ -109,25 +93,19 @@
   </main>
 
   <footer class="footer" id="contact">
-    <h2 class="footer__title">Let&rsquo;s build something that works.</h2>
-    <a class="footer__email" href="mailto:lorenzaquinzi@gmail.com">lorenzaquinzi@gmail.com</a>
-
+    <p class="footer__meta">© <span data-year>2026</span> Lorenza Quinzi</p>
     <a class="footer__now-playing" data-now-playing href="#" target="_blank" rel="noopener" hidden>
       <span class="footer__now-playing-dot" aria-hidden="true"></span>
       <span data-now-playing-label>Now playing</span>
       <span data-now-playing-track></span>
     </a>
-
-    <div class="footer__links">
-      <div class="footer__socials">
-        <a href="https://www.linkedin.com/in/lorenzaquinzi" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://www.instagram.com/lorenzaquinzi" target="_blank" rel="noopener noreferrer">Instagram</a>
-      </div>
-      <p class="footer__meta">© <span data-year>2026</span> Lorenza Quinzi</p>
-    </div>
+    <nav class="footer__links" aria-label="Contact">
+      <a href="mailto:lorenzaquinzi@gmail.com" data-copy-email><span class="copy__label">Email</span><span class="copy__done" aria-hidden="true">Copied</span></a>
+      <a href="https://www.linkedin.com/in/lorenzaquinzi" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://www.instagram.com/lorenzaquinzi" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </nav>
   </footer>
 
   <script src="script.js"></script>
-  <script src="hero.js"></script>
 </body>
 </html>

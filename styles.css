@@ -109,14 +109,18 @@ body {
 
 img { max-width: 100%; height: auto; display: block; }
 
-a {
+a { /* every link inside a string: the same dotted underline, scaled with the type (see Interaction system) */
   color: inherit;
-  text-decoration-color: var(--accent);
-  text-underline-offset: 3px;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: clamp(1.5px, 0.05em, 3px);
+  text-underline-offset: 0.22em;
 }
 
 a:focus-visible,
 button:focus-visible,
+summary:focus-visible,
 [tabindex]:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
@@ -368,18 +372,20 @@ ul { margin: 0; padding: 0; list-style: none; }
   text-decoration: none;
 }
 .work-list__title { font-size: clamp(20px, 2.6vw, 34px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; }
-.work-list__meta, .work-list__year { font-size: 14px; color: var(--muted); }
-.work-list__year { white-space: nowrap; text-align: right; }
+.work-list__meta, .work-list__status { font-size: 14px; color: var(--muted); }
+.work-list__status { white-space: nowrap; text-align: right; } /* a status, not a date: Shipped / Concept, or nothing */
+.work-list__status:empty { visibility: hidden; }
 .work-list__arrow { text-align: right; color: var(--muted); transition: transform 0.25s ease, color 0.25s ease; }
 .work-list__item a:hover .work-list__arrow,
 .work-list__item a:focus-visible .work-list__arrow { transform: translateX(4px); color: var(--fg); }
 .work-list__item a:hover .work-list__title { text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
 .work-list__item a:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 4px; }
 @media (max-width: 640px) {
-  .work-list__item a { grid-template-columns: 1fr 24px; grid-template-areas: "title arrow" "meta arrow"; }
+  .work-list__item a { grid-template-columns: 1fr 24px; grid-template-areas: "title arrow" "meta arrow" "status arrow"; }
   .work-list__title { grid-area: title; }
   .work-list__meta { grid-area: meta; display: inline; }
-  .work-list__year { display: none; }
+  .work-list__status { grid-area: status; text-align: left; } /* the status stays visible on phones, under the company */
+  .work-list__status:empty { display: none; }
   .work-list__arrow { grid-area: arrow; align-self: center; }
 }
 
@@ -552,7 +558,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--placeholder);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
 }
 
 .about-copy p {
@@ -564,30 +570,25 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ---------- Contact / footer ---------- */
 .footer {
-  padding: clamp(56px, 10vw, 120px) var(--gutter) 48px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px 28px;
+  padding: 22px var(--gutter) 26px;
   border-top: 1px solid var(--border);
+  font-size: 13px;
 }
-
-.footer__title {
-  font-size: clamp(32px, 7vw, 72px);
-  max-width: 14ch;
-}
-
-.footer__email {
-  display: inline-block;
-  margin-top: 24px;
-  font-family: var(--font-mono);
-  font-size: clamp(15px, 2vw, 18px);
-  text-decoration-line: underline;
-}
+.footer__meta { color: var(--muted); }
+.footer__links { display: flex; gap: clamp(14px, 2.6vw, 28px); margin-left: auto; }
+.footer__links a { color: var(--fg); text-decoration: none; }
+.about-contact { display: flex; flex-wrap: wrap; gap: 6px clamp(14px, 2.6vw, 28px); }
 
 .footer__now-playing {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 20px;
-  font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 12px;
   color: var(--muted);
   text-decoration: none;
 }
@@ -611,30 +612,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 @keyframes now-playing-pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.35; }
-}
-
-.footer__links {
-  margin-top: 48px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 24px;
-  align-items: center;
-}
-
-.footer__socials {
-  display: flex;
-  gap: 24px;
-  font-family: var(--font-mono);
-  font-size: 13px;
-}
-.footer__socials a { text-decoration: none; color: var(--muted); }
-.footer__socials a:hover { color: var(--fg); }
-
-.footer__meta {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--muted);
 }
 
 /* ---------- Placeholder banner (remove once real content is in) ---------- */
@@ -840,10 +817,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin: 0;
 }
 .cs2-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; padding: 0; list-style: none; }
-.cs2-tags li {
+.cs2-tags li { /* a label, not a control: filled, no outline (see Interaction system) */
   padding: 7px 14px;
-  border: 1px solid var(--border);
   border-radius: 999px;
+  background: var(--bg-raised);
+  color: var(--muted);
   font-size: 13px;
 }
 .cs2-head__body { font-size: clamp(15px, 1.25vw, 17px); line-height: 1.5; max-width: 62ch; }
@@ -1024,8 +1002,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .cs2-proj__role strong { color: var(--fg); font-weight: 500; margin-right: 8px; }
 .cs2-sec h3 { margin: 0 0 16px; font-size: clamp(24px, 3vw, 40px); font-weight: 600; line-height: 1.05; letter-spacing: -0.035em; }
 .cs2-sec--wide .cs2-sec__text h3 { margin: 0; }
-.cs2-meta dd a { text-decoration: none; border-bottom: 1px solid var(--border); }
-.cs2-meta dd a:hover { border-bottom-color: var(--fg); }
 @media (max-width: 860px) { .cs2-proj { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- Other projects: one full-screen slide per project ----------
@@ -1033,7 +1009,8 @@ ul { margin: 0; padding: 0; list-style: none; }
    problems) with the carousel controls pinned at the bottom. Right: one stage whose content
    is a small horizontal carousel (the project's parts). Swipe, arrow keys, buttons or dots. */
 html:has(.cs2--slides) { scroll-snap-type: y mandatory; }
-.cs2--slides ~ .cs-next, .cs2--slides ~ .footer { scroll-snap-align: start; }
+.cs2--slides ~ .cs-next { scroll-snap-align: start; }
+.cs2--slides ~ .footer { scroll-snap-align: end; } /* a short footer can only be reached by snapping its bottom to the bottom of the screen */
 html:has(.cs2--slides) .index-nav { scroll-snap-align: start; }
 /* the intro is just a normal header (same place and size as on the other project pages); the first slide follows right below it */
 .cs2--slides .cs2-head--slide { padding-bottom: clamp(36px, 5vw, 64px); }
@@ -1105,7 +1082,7 @@ html:has(.cs2--slides) .index-nav { scroll-snap-align: start; }
 }
 .cs2-panel--dark { background: #141414; --ink: #f4f4f2; --ink-soft: rgba(244, 244, 242, 0.62); }
 .cs2-panel__head { position: relative; z-index: 2; flex: none; padding: clamp(16px, 2.2vw, 26px) clamp(16px, 2.2vw, 28px) 0; color: var(--ink); }
-.cs2-panel__head h3 { display: inline-block; margin: 0; padding: 5px 12px; border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); border-radius: 999px; font-size: 12px; font-weight: 500; letter-spacing: 0.01em; line-height: 1.2; }
+.cs2-panel__head h3 { display: inline-block; margin: 0; padding: 5px 12px; background: color-mix(in srgb, var(--ink) 12%, transparent); border-radius: 999px; font-size: 12px; font-weight: 500; letter-spacing: 0.01em; line-height: 1.2; }
 .cs2-panel__head p { margin: 12px 0 0; max-width: 44ch; font-size: 15px; line-height: 1.4; color: var(--ink-soft); }
 .cs2-panel__head p strong { color: var(--ink); font-weight: 600; }
 .cs2-panel__media { flex: 1 1 0; min-height: 0; display: flex; padding: clamp(12px, 2vw, 24px); }
@@ -1149,3 +1126,81 @@ html:has(.cs2--slides) .index-nav { scroll-snap-align: start; }
 }
 .about-facts { margin-top: 36px; }
 .about-facts > div:first-child { border-top: 0; padding-top: 0; }
+
+/* ---------- Home: opening line ---------- */
+.intro { padding: clamp(40px, 8vw, 104px) var(--gutter) clamp(28px, 5vw, 64px); }
+.intro__title span { display: block; text-wrap: balance; } /* two deliberate lines: the name, then the job; if the job doesn't fit, it splits evenly */
+.intro__title {
+  font-size: clamp(28px, 4.6vw, 64px);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.035em;
+}
+.intro__link { text-decoration-line: none; } /* a link inside the headline is plain until hovered, like the project titles below it */
+.intro__link:hover, .intro__link:focus-visible { color: inherit; text-decoration-line: underline; text-decoration-style: solid; }
+.intro__link:focus-visible { outline-offset: 6px; border-radius: 4px; }
+
+
+/* =========================================================
+   INTERACTION SYSTEM: one set of rules for "this is tappable".
+
+   1  Text link    One style for every link inside a string: a DOTTED underline, same weight scale,
+                   same offset, same colour as the text around it. Hover: the underline turns solid and the
+                   text goes muted. No other signal (no bold, no colour, no icon), whether the link stays
+                   on the site or opens a new tab. One exception: a link inside the h1 is plain until
+                   hovered (then underlined, colour unchanged), like the project titles on the same page.
+   2  Link group   Header nav and footer links: no underline, because their position says "link".
+                   Hover: muted. In the nav, an underline marks the current page ("you are here").
+   3  Block link   A whole row is the target and ends in an arrow (→ stays here, ↗ leaves).
+                   Hover and focus: the arrow nudges and the title is underlined.
+   4  Button       Icon or text <button>, or an action link such as Email (copies the address and
+                   says "Copied"). Hover: muted. Hit area is at least 44px on touch screens.
+   5  Chip         OUTLINED pill = tappable (none on the site right now).
+                   FILLED pill with no outline = a label (tags, "Before/After", panel names), never tappable.
+   6  Disclosure   A row with a chevron that turns (Experience).
+
+   Cursor: pointer on everything tappable, default elsewhere. The cursor dot grows on the same set.
+   Focus: one ring (2px var(--focus)) on all of them.
+   If you add a new interactive thing, it must fit one of these six. Don't invent a seventh.
+   ========================================================= */
+
+/* 1 · text links */
+a:hover { color: var(--muted); text-decoration-style: solid; }
+
+/* 2 · link groups (no underline) */
+.index-nav__logo, .index-nav__links a, .footer__links a, .footer__now-playing { text-decoration: none; }
+.index-nav__links a[aria-current="page"] { text-decoration: underline; text-decoration-style: solid; text-underline-offset: 5px; }
+
+/* 3 · block links: colour stays put, the arrow and the title do the talking */
+.work-list__item a:hover, .cs-next:hover { color: var(--fg); }
+.cs-next > span[aria-hidden="true"] { color: var(--muted); transition: transform 0.25s ease, color 0.25s ease; }
+.cs-next:hover > span[aria-hidden="true"], .cs-next:focus-visible > span[aria-hidden="true"] { transform: translateX(4px); color: var(--fg); }
+.cs-next:hover .cs-next__title, .cs-next:focus-visible .cs-next__title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+.cs-next:focus-visible { outline-offset: -4px; }
+
+/* 4 · buttons and actions */
+.index-nav__theme:hover { opacity: 0.6; }
+[data-copy-email] { position: relative; }
+[data-copy-email] > span { transition: opacity 0.15s ease; }
+[data-copy-email] .copy__done { position: absolute; left: 0; top: 0; white-space: nowrap; text-decoration: none; opacity: 0; } /* overlays, so the row never shifts */
+[data-copy-email].is-copied .copy__label { opacity: 0; }
+[data-copy-email].is-copied .copy__done { opacity: 1; }
+
+/* cursor: pointer for tappable, nothing else */
+a[href], button:not(:disabled), summary, [role="button"] { cursor: pointer; }
+.vh-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* touch: every control reaches 44px without changing how it looks */
+@media (pointer: coarse) {
+  .index-nav__logo, .index-nav__links a, .index-nav__theme,
+  .footer__links a, .footer__now-playing { position: relative; }
+  .index-nav__logo::after, .index-nav__links a::after, .index-nav__theme::after,
+  .footer__links a::after, .footer__now-playing::after { content: ""; position: absolute; inset: -12px -8px; }
+  .cs2-clip-btn { width: 44px; height: 44px; }
+  .exp-item summary { min-height: 44px; }
+}
+
+/* a device frame inside a Before/After pair (Bill 2.0): same frame, same controls as the íon clip,
+   sized from the column width instead of the panel height */
+.cs2-panel .cs2-phones .cs2-frame { flex: 0 0 auto; width: 100%; height: auto; margin: auto 0; }
+.cs2-panel .cs2-phones .cs2-frame img { flex: none; width: 100%; height: auto; max-width: none; }

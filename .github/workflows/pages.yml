@@ -33,7 +33,7 @@ jobs:
       - name: Assemble the site (only what should be public)
         run: |
           mkdir _site
-          cp *.html styles.css hero.css script.js hero.js _site/
+          cp *.html styles.css script.js _site/
           cp -r assets _site/
           touch _site/.nojekyll
 
