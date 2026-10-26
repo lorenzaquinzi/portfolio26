@@ -83,14 +83,19 @@
         <p>I conducted multiple design reviews with designers and squad peers until we had a new solution. I also gathered feedback from the leadership, CX and Operations, and proposed that we validate with customers again.</p>
         <p>The first proposed solution: a summary of how much you saved this month, the amount to pay and the due date, plus a card with notices from Lemon.</p>
       </div>
-      <figure class="cs2-stage cs2-stage--dark"><img class="cs2-media" src="assets/lemon-bill/bill-first.webp" width="1263" height="2160" loading="lazy" alt="The first proposed solution on a phone: a green summary saying you saved R$ 92,13 this month, with the amount to pay, the due date and a Lemon notices card." /></figure>
+      <figure class="cs2-stage cs2-stage--frame">
+        <div class="cs2-frame">
+          <img class="cs2-screen" src="assets/lemon-bill/bill-first.webp" width="1076" height="1904" loading="lazy" alt="The first proposed solution on a phone: a green summary saying you saved R$ 92,13 this month, with the amount to pay, the due date and a Lemon notices card." />
+          <img src="assets/device/device-frame.webp" width="728" height="1266" alt="" />
+        </div>
+      </figure>
     </section>
 
     <section class="cs2-sec cs2-sec--wide" data-reveal aria-labelledby="delivery">
       <div class="cs2-sec__text">
         <h2 id="delivery">Delivery</h2>
         <p>I defined the MVP scope and designed all flows and scenarios, working with a copywriter, designers, product managers, engineers and more. We also went through a company rebrand and had to adapt everything we were doing.</p>
-        <p>I worked close to engineers to discover every scenario and agree on how to structure the file for handoff: an overview, responsive sizes, scenarios and loading states.</p>
+        <p>I worked close to engineers to discover every scenario and agree on how to structure the file for handoff: an overview, responsive sizes, scenarios, loading states and edge cases.</p>
       </div>
       <figure class="cs2-stage cs2-stage--plain"><img class="" src="assets/lemon-bill/bill-handoff.webp" width="2400" height="1350" loading="lazy" alt="The Figma handoff file structure: an overview, responsive sizes from extra small to extra large, scenarios and loading states, laid out as a map of small screens." /></figure>
     </section>
@@ -101,14 +106,14 @@
         <p>A green summary with how much the customer saved this month, the amount and due date, and buttons to open the bill or copy the barcode. Below it, the account in detail, the savings, the environmental impact and answers to common questions.</p>
       </div>
       <figure class="cs2-stage cs2-stage--dark">
-        <div class="cs2-phones" style="--n:2">
-          <figure><img src="assets/lemon-bill/bill-old.webp" width="900" height="1273" loading="lazy" alt="The old bill, first page." /><figcaption>Before</figcaption></figure>
+        <div class="cs2-phones cs2-phones--equal" style="--n:2">
+          <figure><img src="assets/lemon-bill/bill-old.webp" width="900" height="1273" loading="lazy" alt="The old bill, first page." /><figcaption>Before (.pdf)</figcaption></figure>
           <figure>
             <div class="cs2-frame">
               <video data-clip muted loop playsinline preload="none" poster="assets/lemon-bill/bill-scroll.jpg" aria-label="Screen recording: scrolling through the whole new bill, from the savings summary to how much was saved, the environmental impact, the help questions and the footer.">
                 <source src="assets/lemon-bill/bill-scroll.mp4" type="video/mp4" />
               </video>
-              <img src="assets/device/phone-frame.webp" width="735" height="1080" alt="" />
+              <img src="assets/device/device-frame.webp" width="728" height="1266" alt="" />
             </div>
             <figcaption>After</figcaption>
           </figure>
@@ -118,20 +123,40 @@
 
     <section class="cs2-sec" data-reveal aria-labelledby="rollout">
       <div class="cs2-sec__text">
-        <h2 id="rollout">Rollout and results</h2>
+        <h2 id="rollout">Rollout, results and learnings</h2>
         <p>The new bill was tested a lot in beta to make sure all calculations were right. We started in a production test with 10 customers, then 15%, 30% and so on.</p>
-        <p>To monitor results I built an Amplitude dashboard to keep track of usage, and connected Hotjar for real usage and heatmaps. The Data team built a dashboard for the payment impact.</p>
+        <p>To monitor results I built an Amplitude dashboard to keep track of usage, and connected Hotjar for real usage and heatmaps. The Data team built a dashboard for the payment impact. The chart only shows the overall trend, as weekly averages on a relative scale, with no exact numbers or dates.</p>
+        <p>To understand people&rsquo;s perception, we also sent a survey a couple of days after they received the new format of the bill, and mapped some behaviour patterns of our customers to see which features should be prioritized, what worked out and what didn&rsquo;t.</p>
       </div>
-      <figure class="cs2-stage cs2-stage--plain"><img class="" src="assets/lemon-bill/bill-amplitude.webp" width="2400" height="1350" loading="lazy" alt="The Amplitude dashboard &amp;ldquo;Conta Lemon 2.0&amp;rdquo;: daily number of accesses, number of sessions by duration and devices, plus funnel cards for opening the bill and copying the barcode." /></figure>
-    </section>
-
-    <section class="cs2-sec" data-reveal aria-labelledby="survey">
-      <div class="cs2-sec__text">
-        <h2 id="survey">Survey and learnings</h2>
-        <p>To understand people&rsquo;s perception, we sent a survey a couple of days after they received the new format of the bill.</p>
-        <p>We also mapped some behaviour patterns of our customers and understood which features should be prioritized, what worked out and what didn&rsquo;t.</p>
+      <div class="cs2-datas">
+      <figure class="cs2-data">
+        <svg viewBox="0 0 860 310" role="img" aria-labelledby="amp-title amp-desc" preserveAspectRatio="xMidYMid meet">
+          <title id="amp-title">Usage of the new bill over time, indexed</title>
+          <desc id="amp-desc">Line chart of weekly usage over the rollout, relative to its own peak and without exact numbers or dates. Use stays low for the first weeks, then steps up sharply in the middle of the period and keeps growing, with the peak in the last weeks.</desc>
+          <defs>
+            <linearGradient id="data-fade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" style="stop-color:var(--fg);stop-opacity:0.07" />
+              <stop offset="1" style="stop-color:var(--fg);stop-opacity:0" />
+            </linearGradient>
+          </defs>
+          <text class="cs2-data__cap" x="0" y="12">Weekly usage, relative to its peak</text>
+          <line class="cs2-data__grid" x1="0" y1="44.0" x2="650" y2="44.0" /><text class="cs2-data__tick" x="660" y="48.0">Peak</text>
+          <line class="cs2-data__base" x1="0" y1="270" x2="650" y2="270" />
+          <text class="cs2-data__xtick" x="34.0" y="292" text-anchor="start">Week 1</text><text class="cs2-data__xtick" x="342.0" y="292" text-anchor="middle">Week 5</text><text class="cs2-data__xtick" x="650.0" y="292" text-anchor="end">Week 9</text>
+          <path class="cs2-data__area" d="M34.0 203.3 C46.8 209.5 85.3 233.4 111.0 240.9 C136.7 248.5 162.3 246.3 188.0 248.6 C213.7 250.9 239.3 270.0 265.0 254.7 C290.7 234.5 316.3 148.2 342.0 127.0 C367.7 105.8 393.3 132.1 419.0 127.5 C444.7 122.9 470.3 96.1 496.0 99.4 C521.7 102.6 547.3 156.3 573.0 147.0 C598.7 137.8 637.2 61.2 650.0 44.0 L650.0 270 L34.0 270 Z" />
+          <path class="cs2-data__line cs2-data__line--android" pathLength="1" d="M34.0 203.3 C46.8 209.5 85.3 233.4 111.0 240.9 C136.7 248.5 162.3 246.3 188.0 248.6 C213.7 250.9 239.3 270.0 265.0 254.7 C290.7 234.5 316.3 148.2 342.0 127.0 C367.7 105.8 393.3 132.1 419.0 127.5 C444.7 122.9 470.3 96.1 496.0 99.4 C521.7 102.6 547.3 156.3 573.0 147.0 C598.7 137.8 637.2 61.2 650.0 44.0" />
+          <g class="cs2-data__end">
+            <circle class="cs2-data__halo cs2-data__halo--android" cx="650.0" cy="44.0" r="8" />
+            <circle class="cs2-data__dot cs2-data__dot--android" cx="650.0" cy="44.0" r="3.5" />
+          </g>
+        </svg>
+      </figure>
+      <div class="cs2-survey">
+        <h3 class="cs2-survey__title">Customer survey</h3>
+        <p class="cs2-survey__cap">Sent a couple of days after customers received the new bill</p>
+        <ul class="cs2-stats"><li><strong>83%</strong><span>of respondents found the new bill easy or super easy to navigate</span></li><li><strong>92%</strong><span>of respondents said they had no questions after using it</span></li><li><strong>4,3 / 5</strong><span>average satisfaction score</span></li></ul>
       </div>
-      <ul class="cs2-stats"><li><strong>83%</strong><span>Found it easy or super easy to navigate</span></li><li><strong>92%</strong><span>Declared that had no questions after the use</span></li><li><strong>4,3 / 5</strong><span>Satisfaction</span></li></ul>
+      </div>
     </section>
   </main>
 

@@ -217,7 +217,7 @@
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   clips.forEach(function (v) {
-    var stage = v.parentNode;
+    var stage = (v.closest && v.closest(".cs2-stage")) || v.parentNode; /* the control sits in the corner of the stage, outside any device frame */
     var btn = document.createElement("button");
     btn.type = "button";
     btn.className = "cs2-clip-btn";
