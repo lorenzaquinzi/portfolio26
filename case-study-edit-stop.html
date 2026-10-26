@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edit Stop View — Spoke — Lorenza Quinzi</title>
+  <meta name="description" content="Spoke: update the UI to make it quicker for drivers to enter stop details, motivating them to do it more often. Concepting, design, prototype, handoff and QA." />
+  <meta name="author" content="Lorenza Quinzi" />
+  <meta property="og:title" content="Edit Stop View — Spoke — Lorenza Quinzi" />
+  <meta property="og:description" content="Update the UI to make it quicker for drivers to enter stop details." />
+  <meta property="og:type" content="article" />
+  <meta name="theme-color" content="#F9F9F7" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext x='50' y='68' font-family='Arial, sans-serif' font-size='58' font-weight='700' fill='%23F9F9F7' text-anchor='middle'%3ELQ%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="index-nav" aria-label="Primary">
+    <a class="index-nav__logo" href="index.html" aria-label="Lorenza Quinzi, home"><span class="index-nav__mark" aria-hidden="true"></span></a>
+    <div class="index-nav__links">
+      <a href="index.html#work" aria-current="page">Selected Work</a>
+      <a href="experience.html">Experience</a>
+      <a href="about.html">About</a>
+      <button class="index-nav__theme" data-theme-toggle type="button" aria-pressed="false">
+        <span class="disc" aria-hidden="true"></span>
+        <span class="sr-only" data-theme-label>Dark mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main" class="cs2">
+
+    <header class="cs2-head">
+      <div class="cs2-head__title">
+        <h1>Edit Stop View</h1>
+        <ul class="cs2-tags" aria-label="Disciplines">
+          <li>Product Design</li>
+          <li>Prototyping</li>
+          <li>Handoff &amp; QA</li>
+        </ul>
+      </div>
+      <div class="cs2-head__body">
+        <p class="cs2-lede">Update the UI to make it quicker for drivers to enter stop details, motivating them to do it more often.</p>
+        <dl class="cs2-meta">
+          <div><dt>Company</dt><dd>Spoke (formerly Circuit)</dd></div>
+          <div><dt>Year</dt><dd>2023</dd></div>
+          <div><dt>Role</dt><dd>Concepting, design, prototype, handoff and QA.</dd></div>
+          <div><dt>Platforms</dt><dd>iOS and Android</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="problem">
+      <div class="cs2-sec__text">
+        <h2 id="problem">Problem</h2>
+        <p>The old edit stop view was a different experience on each platform, so the same task looked and worked differently on Android and on iOS.</p>
+        <ul class="cs2-list"><li>Different experience on each platform</li><li>Not optimized for vertical space, to reduce the need of scroll</li><li>Outdated components</li></ul>
+      </div>
+      <figure class="cs2-stage cs2-stage--dark cs2-stage--plain"><img class="" src="assets/circuit-edit-stop/edit-problems.webp" width="1636" height="1680" loading="lazy" alt="The old edit stop view on Android and on iOS side by side: a search field, the stop name and address, and separate fields for place in vehicle, priority, type, time window and stop duration. The two platforms differ from each other." /></figure>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="redesign">
+      <div class="cs2-sec__text">
+        <h2 id="redesign">Redesign</h2>
+        <p>The stop details became a compact list: place in vehicle, order, type, arrival time and time at stop, with change address, duplicate stop and remove stop below it. It fits more on one screen, so there is less to scroll.</p>
+      </div>
+      <div class="cs2-stage cs2-stage--dark"><div class="cs2-phones" style="--n:2">
+          <figure><img src="assets/circuit-edit-stop/edit-old.webp" width="750" height="1624" loading="lazy" alt="The old edit stop view on Android, with separate input fields." /><figcaption>Before</figcaption></figure>
+          <figure><img src="assets/circuit-edit-stop/edit-new.webp" width="750" height="1624" loading="lazy" alt="The redesigned edit stop view: the details in a compact list, with change address, duplicate stop and remove stop as list actions." /><figcaption>After</figcaption></figure>
+        </div></div>
+    </section>
+  </main>
+
+  <a class="cs-next" href="case-study-bill.html">
+    <span>
+      <span class="cs-next__label eyebrow">Next project</span>
+      <span class="cs-next__title">Digital Electricity Bill — Lemon Energy</span>
+    </span>
+    <span aria-hidden="true">→</span>
+  </a>
+
+  <footer class="footer" id="contact">
+    <p class="footer__meta">© <span data-year>2026</span> Lorenza Quinzi</p>
+    <a class="footer__now-playing" data-now-playing href="#" target="_blank" rel="noopener" hidden>
+      <span class="footer__now-playing-dot" aria-hidden="true"></span>
+      <span data-now-playing-label>Now playing</span>
+      <span data-now-playing-track></span>
+    </a>
+    <nav class="footer__links" aria-label="Contact">
+      <a href="mailto:lorenzaquinzi@gmail.com" data-copy-email><span class="copy__label">Email</span><span class="copy__done" aria-hidden="true">Copied</span></a>
+      <a href="https://www.linkedin.com/in/lorenzaquinzi" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://www.instagram.com/lorenzaquinzi" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </nav>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

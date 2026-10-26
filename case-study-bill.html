@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Electricity Bill — Lemon Energy — Lorenza Quinzi</title>
+  <meta name="description" content="Lemon Energy: redesign the energy bill that users get every month. From research and a first solution to rollout, with a survey where 83% found the new bill easy to navigate." />
+  <meta name="author" content="Lorenza Quinzi" />
+  <meta property="og:title" content="Digital Electricity Bill — Lemon Energy — Lorenza Quinzi" />
+  <meta property="og:description" content="Redesign the energy bill that users get every month. 83% found the new bill easy or super easy to navigate." />
+  <meta property="og:type" content="article" />
+  <meta name="theme-color" content="#F9F9F7" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext x='50' y='68' font-family='Arial, sans-serif' font-size='58' font-weight='700' fill='%23F9F9F7' text-anchor='middle'%3ELQ%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="index-nav" aria-label="Primary">
+    <a class="index-nav__logo" href="index.html" aria-label="Lorenza Quinzi, home"><span class="index-nav__mark" aria-hidden="true"></span></a>
+    <div class="index-nav__links">
+      <a href="index.html#work" aria-current="page">Selected Work</a>
+      <a href="experience.html">Experience</a>
+      <a href="about.html">About</a>
+      <button class="index-nav__theme" data-theme-toggle type="button" aria-pressed="false">
+        <span class="disc" aria-hidden="true"></span>
+        <span class="sr-only" data-theme-label>Dark mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main" class="cs2">
+
+    <header class="cs2-head">
+      <div class="cs2-head__title">
+        <h1>Digital Electricity Bill</h1>
+        <ul class="cs2-tags" aria-label="Disciplines">
+          <li>Product Design</li>
+          <li>User testing</li>
+          <li>Handoff &amp; QA</li>
+        </ul>
+      </div>
+      <div class="cs2-head__body">
+        <p class="cs2-lede">Redesign the energy bill that users get every month.</p>
+        <p>Lemon helps small businesses choose where their energy comes from, accelerating their transition to sustainable energy. And it&rsquo;s cheaper.</p>
+        <dl class="cs2-meta">
+          <div><dt>Company</dt><dd>Lemon Energy</dd></div>
+          <div><dt>Year</dt><dd>2022</dd></div>
+          <div><dt>Role</dt><dd>Lead product designer. Concepting, design, prototype, user testing, handoff and QA.</dd></div>
+          <div><dt>Team</dt><dd>1 junior designer, 1 product manager and 2 engineers, with Customer Experience and Operations.</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="problem">
+      <div class="cs2-sec__text">
+        <h2 id="problem">Problem</h2>
+        <p>The bill was a paper-style PDF in several pages. These were the problems to solve:</p>
+        <ul class="cs2-list"><li>Poor mobile experience (.pdf)</li><li>No usage metrics</li><li>~67% of CX tickets were related to service understanding</li><li>Poor contextual comms</li></ul>
+      </div>
+      <figure class="cs2-stage cs2-stage--dark"><img class="cs2-media" src="assets/lemon-bill/bill-old.webp" width="900" height="1273" loading="lazy" alt="The old Lemon bill: the first page of a paper-style PDF, with how much the customer saved, the due date, and economy and sustainability numbers." /></figure>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="voices">
+      <div class="cs2-sec__text">
+        <h2 id="voices">What customers told us</h2>
+        <p>Interviews and desk research showed how customers really use the bill: once a month, to compare with the previous one, and they like being able to answer their own questions.</p>
+      </div>
+      <div class="cs2-quotes"><blockquote class="cs2-quote"><p>&ldquo;I only pay attention to my consume when I receive my energy bill, once a month. And I keep track of it by comparing the cost with the previous month&rdquo;</p><footer>Angela</footer></blockquote><blockquote class="cs2-quote"><p>&ldquo;I like having the option of answering my own question. I don&rsquo;t have time to contact you everytime I have a question&rdquo;</p><footer>Lucas</footer></blockquote></div>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="vision">
+      <div class="cs2-sec__text">
+        <h2 id="vision">Designing the vision</h2>
+        <p>I conducted multiple design reviews with designers and squad peers until we had a new solution. I also gathered feedback from the leadership, CX and Operations, and proposed that we validate with customers again.</p>
+        <p>The first proposed solution: a summary of how much you saved this month, the amount to pay and the due date, plus a card with notices from Lemon.</p>
+      </div>
+      <figure class="cs2-stage cs2-stage--dark"><img class="cs2-media" src="assets/lemon-bill/bill-first.webp" width="1263" height="2160" loading="lazy" alt="The first proposed solution on a phone: a green summary saying you saved R$ 92,13 this month, with the amount to pay, the due date and a Lemon notices card." /></figure>
+    </section>
+
+    <section class="cs2-sec cs2-sec--wide" data-reveal aria-labelledby="delivery">
+      <div class="cs2-sec__text">
+        <h2 id="delivery">Delivery</h2>
+        <p>I defined the MVP scope and designed all flows and scenarios, working with a copywriter, designers, product managers, engineers and more. We also went through a company rebrand and had to adapt everything we were doing.</p>
+        <p>I worked close to engineers to discover every scenario and agree on how to structure the file for handoff: an overview, responsive sizes, scenarios and loading states.</p>
+      </div>
+      <figure class="cs2-stage cs2-stage--plain"><img class="" src="assets/lemon-bill/bill-handoff.webp" width="2400" height="1350" loading="lazy" alt="The Figma handoff file structure: an overview, responsive sizes from extra small to extra large, scenarios and loading states, laid out as a map of small screens." /></figure>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="solution">
+      <div class="cs2-sec__text">
+        <h2 id="solution">The new bill</h2>
+        <p>A green summary with how much the customer saved this month, the amount and due date, and buttons to open the bill or copy the barcode. Below it, the account in detail, the savings, the environmental impact and answers to common questions.</p>
+      </div>
+      <figure class="cs2-stage cs2-stage--dark">
+        <div class="cs2-phones" style="--n:2">
+          <figure><img src="assets/lemon-bill/bill-old.webp" width="900" height="1273" loading="lazy" alt="The old bill, first page." /><figcaption>Before</figcaption></figure>
+          <figure>
+            <div class="cs2-frame">
+              <video data-clip muted loop playsinline preload="none" poster="assets/lemon-bill/bill-scroll.jpg" aria-label="Screen recording: scrolling through the whole new bill, from the savings summary to how much was saved, the environmental impact, the help questions and the footer.">
+                <source src="assets/lemon-bill/bill-scroll.mp4" type="video/mp4" />
+              </video>
+              <img src="assets/device/phone-frame.webp" width="735" height="1080" alt="" />
+            </div>
+            <figcaption>After</figcaption>
+          </figure>
+        </div>
+      </figure>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="rollout">
+      <div class="cs2-sec__text">
+        <h2 id="rollout">Rollout and results</h2>
+        <p>The new bill was tested a lot in beta to make sure all calculations were right. We started in a production test with 10 customers, then 15%, 30% and so on.</p>
+        <p>To monitor results I built an Amplitude dashboard to keep track of usage, and connected Hotjar for real usage and heatmaps. The Data team built a dashboard for the payment impact.</p>
+      </div>
+      <figure class="cs2-stage cs2-stage--plain"><img class="" src="assets/lemon-bill/bill-amplitude.webp" width="2400" height="1350" loading="lazy" alt="The Amplitude dashboard &amp;ldquo;Conta Lemon 2.0&amp;rdquo;: daily number of accesses, number of sessions by duration and devices, plus funnel cards for opening the bill and copying the barcode." /></figure>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="survey">
+      <div class="cs2-sec__text">
+        <h2 id="survey">Survey and learnings</h2>
+        <p>To understand people&rsquo;s perception, we sent a survey a couple of days after they received the new format of the bill.</p>
+        <p>We also mapped some behaviour patterns of our customers and understood which features should be prioritized, what worked out and what didn&rsquo;t.</p>
+      </div>
+      <ul class="cs2-stats"><li><strong>83%</strong><span>Found it easy or super easy to navigate</span></li><li><strong>92%</strong><span>Declared that had no questions after the use</span></li><li><strong>4,3 / 5</strong><span>Satisfaction</span></li></ul>
+    </section>
+  </main>
+
+  <a class="cs-next" href="case-study-ion.html">
+    <span>
+      <span class="cs-next__label eyebrow">Next project</span>
+      <span class="cs-next__title">Íon Investments — Work &amp; Co</span>
+    </span>
+    <span aria-hidden="true">→</span>
+  </a>
+
+  <footer class="footer" id="contact">
+    <p class="footer__meta">© <span data-year>2026</span> Lorenza Quinzi</p>
+    <a class="footer__now-playing" data-now-playing href="#" target="_blank" rel="noopener" hidden>
+      <span class="footer__now-playing-dot" aria-hidden="true"></span>
+      <span data-now-playing-label>Now playing</span>
+      <span data-now-playing-track></span>
+    </a>
+    <nav class="footer__links" aria-label="Contact">
+      <a href="mailto:lorenzaquinzi@gmail.com" data-copy-email><span class="copy__label">Email</span><span class="copy__done" aria-hidden="true">Copied</span></a>
+      <a href="https://www.linkedin.com/in/lorenzaquinzi" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://www.instagram.com/lorenzaquinzi" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </nav>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

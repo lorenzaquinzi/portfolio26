@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>App Main Menu — Spoke — Lorenza Quinzi</title>
+  <meta name="description" content="Spoke: update the menu to have more list space and a fixed “Create route” button. Concepting, design, prototype, handoff and QA." />
+  <meta name="author" content="Lorenza Quinzi" />
+  <meta property="og:title" content="App Main Menu — Spoke — Lorenza Quinzi" />
+  <meta property="og:description" content="Update the menu to have more list space and a fixed Create route button." />
+  <meta property="og:type" content="article" />
+  <meta name="theme-color" content="#F9F9F7" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext x='50' y='68' font-family='Arial, sans-serif' font-size='58' font-weight='700' fill='%23F9F9F7' text-anchor='middle'%3ELQ%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="index-nav" aria-label="Primary">
+    <a class="index-nav__logo" href="index.html" aria-label="Lorenza Quinzi, home"><span class="index-nav__mark" aria-hidden="true"></span></a>
+    <div class="index-nav__links">
+      <a href="index.html#work" aria-current="page">Selected Work</a>
+      <a href="experience.html">Experience</a>
+      <a href="about.html">About</a>
+      <button class="index-nav__theme" data-theme-toggle type="button" aria-pressed="false">
+        <span class="disc" aria-hidden="true"></span>
+        <span class="sr-only" data-theme-label>Dark mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main" class="cs2">
+
+    <header class="cs2-head">
+      <div class="cs2-head__title">
+        <h1>App Main Menu</h1>
+        <ul class="cs2-tags" aria-label="Disciplines">
+          <li>Product Design</li>
+          <li>Prototyping</li>
+          <li>Handoff &amp; QA</li>
+        </ul>
+      </div>
+      <div class="cs2-head__body">
+        <p class="cs2-lede">Update the menu to have more list space and a fixed &ldquo;Create route&rdquo; button.</p>
+        <dl class="cs2-meta">
+          <div><dt>Company</dt><dd>Spoke (formerly Circuit)</dd></div>
+          <div><dt>Year</dt><dd>2023</dd></div>
+          <div><dt>Role</dt><dd>Concepting, design, prototype, handoff and QA.</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="problem">
+      <div class="cs2-sec__text">
+        <h2 id="problem">Problem</h2>
+        <ul class="cs2-list"><li>&ldquo;Create route&rdquo; button was duplicated and too subtle when the daily list was not empty</li><li>Small area for the list, lack of space to scroll</li><li>Fixed footer with options that are not used too often</li><li>Header taking too much vertical space, an issue on smaller devices</li></ul>
+      </div>
+      <figure class="cs2-stage cs2-stage--dark"><img class="cs2-media" src="assets/circuit-menu/menu-old.webp" width="750" height="1624" loading="lazy" alt="The old menu: a tall header with the driver profile, a Today card with a Create route button, a Yesterday list, and a footer with another Create route, Settings, Help and Support, and Free driver training." /></figure>
+    </section>
+
+    <section class="cs2-sec" data-reveal aria-labelledby="redesign">
+      <div class="cs2-sec__text">
+        <h2 id="redesign">Redesign</h2>
+        <p>A compact header with close, help, training and settings, a longer list of days, and one fixed &ldquo;Create route&rdquo; button at the bottom.</p>
+      </div>
+      <div class="cs2-stage cs2-stage--dark"><div class="cs2-phones" style="--n:2">
+          <figure><img src="assets/circuit-menu/menu-old.webp" width="750" height="1624" loading="lazy" alt="The old menu." /><figcaption>Before</figcaption></figure>
+          <figure><img src="assets/circuit-menu/menu-new.webp" width="780" height="1688" loading="lazy" alt="The redesigned menu: a compact header, a longer list of days grouped by month, and a fixed Create route button at the bottom." /><figcaption>After</figcaption></figure>
+        </div></div>
+    </section>
+  </main>
+
+  <a class="cs-next" href="case-study-edit-stop.html">
+    <span>
+      <span class="cs-next__label eyebrow">Next project</span>
+      <span class="cs-next__title">Edit Stop View — Spoke</span>
+    </span>
+    <span aria-hidden="true">→</span>
+  </a>
+
+  <footer class="footer" id="contact">
+    <p class="footer__meta">© <span data-year>2026</span> Lorenza Quinzi</p>
+    <a class="footer__now-playing" data-now-playing href="#" target="_blank" rel="noopener" hidden>
+      <span class="footer__now-playing-dot" aria-hidden="true"></span>
+      <span data-now-playing-label>Now playing</span>
+      <span data-now-playing-track></span>
+    </a>
+    <nav class="footer__links" aria-label="Contact">
+      <a href="mailto:lorenzaquinzi@gmail.com" data-copy-email><span class="copy__label">Email</span><span class="copy__done" aria-hidden="true">Copied</span></a>
+      <a href="https://www.linkedin.com/in/lorenzaquinzi" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://www.instagram.com/lorenzaquinzi" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </nav>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

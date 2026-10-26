@@ -105,7 +105,14 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   transition: background-color .25s ease, color .25s ease;
+  /* sticky footer: when a page is shorter than the screen, the footer sits at the bottom of it */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
+body > main { flex: 1 0 auto; }
+body > .footer { margin-top: auto; }
 
 img { max-width: 100%; height: auto; display: block; }
 
@@ -372,20 +379,18 @@ ul { margin: 0; padding: 0; list-style: none; }
   text-decoration: none;
 }
 .work-list__title { font-size: clamp(20px, 2.6vw, 34px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; }
-.work-list__meta, .work-list__status { font-size: 14px; color: var(--muted); }
-.work-list__status { white-space: nowrap; text-align: right; } /* a status, not a date: Shipped / Concept, or nothing */
-.work-list__status:empty { visibility: hidden; }
+.work-list__meta, .work-list__year { font-size: 14px; color: var(--muted); }
+.work-list__year { white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
 .work-list__arrow { text-align: right; color: var(--muted); transition: transform 0.25s ease, color 0.25s ease; }
 .work-list__item a:hover .work-list__arrow,
 .work-list__item a:focus-visible .work-list__arrow { transform: translateX(4px); color: var(--fg); }
 .work-list__item a:hover .work-list__title { text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
 .work-list__item a:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 4px; }
 @media (max-width: 640px) {
-  .work-list__item a { grid-template-columns: 1fr 24px; grid-template-areas: "title arrow" "meta arrow" "status arrow"; }
+  .work-list__item a { grid-template-columns: 1fr 24px; grid-template-areas: "title arrow" "meta arrow" "year arrow"; }
   .work-list__title { grid-area: title; }
   .work-list__meta { grid-area: meta; display: inline; }
-  .work-list__status { grid-area: status; text-align: left; } /* the status stays visible on phones, under the company */
-  .work-list__status:empty { display: none; }
+  .work-list__year { grid-area: year; text-align: left; } /* under the company on phones */
   .work-list__arrow { grid-area: arrow; align-self: center; }
 }
 
@@ -1031,7 +1036,7 @@ html:has(.cs2--slides) .index-nav { scroll-snap-align: start; }
 .cs2-slide__info { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; scrollbar-width: none; padding-top: 4px; }
 .cs2-slide__info::-webkit-scrollbar { display: none; }
 .cs2-slide__info .cs2-proj__kicker { margin: 0 0 12px; font-size: 13px; color: var(--muted); }
-.cs2-slide__info h2 { margin: 0 0 20px; font-size: clamp(28px, 3.4vw, 46px); font-weight: 600; line-height: 1.02; letter-spacing: -0.04em; }
+.cs2-slide__info h1, .cs2-slide__info h2 { margin: 0 0 20px; font-size: clamp(28px, 3.4vw, 46px); font-weight: 600; line-height: 1.02; letter-spacing: -0.04em; }
 .cs2-slide__info .cs2-proj__goal { margin: 0 0 14px; font-size: clamp(16px, 1.45vw, 19px); line-height: 1.35; letter-spacing: -0.01em; font-weight: 500; max-width: 38ch; }
 .cs2-slide__info .cs2-proj__role { margin: 0; font-size: 14px; line-height: 1.45; color: var(--muted); max-width: 40ch; }
 .cs2-slide__info .cs2-proj__role strong { display: block; margin: 0 0 2px; font-size: 12px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg); }
@@ -1101,7 +1106,7 @@ html:has(.cs2--slides) .index-nav { scroll-snap-align: start; }
 @media (max-width: 860px) {
   .cs2-slide { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 18px; height: auto; min-height: 100svh; }
   .cs2-slide__info { overflow: visible; }
-  .cs2-slide__info h2 { margin-bottom: 10px; }
+  .cs2-slide__info h1, .cs2-slide__info h2 { margin-bottom: 10px; }
   .cs2-slide__problems { margin-top: 14px; padding-top: 12px; }
   .cs2-car__ctl { order: 3; padding-top: 14px; }
   .cs2-car { height: calc(100svh - 120px); min-height: 440px; }
@@ -1204,3 +1209,21 @@ a[href], button:not(:disabled), summary, [role="button"] { cursor: pointer; }
    sized from the column width instead of the panel height */
 .cs2-panel .cs2-phones .cs2-frame { flex: 0 0 auto; width: 100%; height: auto; margin: auto 0; }
 .cs2-panel .cs2-phones .cs2-frame img { flex: none; width: 100%; height: auto; max-width: none; }
+
+/* ---------- Case study: snippet pages (stats, quotes, a flow line, a dark stage) ---------- */
+.cs2-stage--dark { background: #141414; }
+.cs2-stage--dark .cs2-phones figcaption, .cs2-stage--frame .cs2-phones figcaption { color: rgba(244, 244, 242, 0.62); }
+.cs2-stage--dark .cs2-media { border-radius: 0; background: transparent; }
+.cs2-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px clamp(24px, 4vw, 64px); margin: 0; padding: 0; list-style: none; }
+.cs2-stats li { padding-top: 16px; border-top: 1px solid var(--border); }
+.cs2-stats strong { display: block; margin-bottom: 10px; font-size: clamp(36px, 5vw, 72px); font-weight: 600; letter-spacing: -0.04em; line-height: 1; }
+.cs2-stats span { font-size: 15px; line-height: 1.35; color: var(--muted); }
+.cs2-quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px clamp(24px, 4vw, 64px); }
+.cs2-quote { margin: 0; padding-top: 16px; border-top: 1px solid var(--border); font-size: clamp(18px, 1.9vw, 26px); line-height: 1.3; letter-spacing: -0.015em; }
+.cs2-quote footer { margin-top: 12px; font-size: 14px; letter-spacing: 0; color: var(--muted); }
+.cs2-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 0; padding: 0; list-style: none; font-size: clamp(22px, 3vw, 40px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.15; }
+.cs2-flow li + li::before { content: "›"; margin-right: 16px; color: var(--muted); }
+.cs2-flow li.is-focus { font-weight: 600; }
+@media (max-width: 860px) {
+  .cs2-stats, .cs2-quotes { grid-template-columns: minmax(0, 1fr); }
+}

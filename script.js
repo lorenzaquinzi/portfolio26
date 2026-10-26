@@ -58,6 +58,21 @@
     revealEls.forEach(function (el) { el.classList.add("is-visible"); });
   }
 
+  /* ---------- Logo: on the page it points to, go back to the very top ----------
+     Tapping the logo on the home page scrolls to the initial position (top of the page, no #hash left in the URL);
+     on other pages it is a normal link to the home page. */
+  var logo = document.querySelector(".index-nav__logo");
+  if (logo) {
+    logo.addEventListener("click", function (e) {
+      var strip = function (p) { return p.replace(/index\.html$/, "").replace(/\/+$/, ""); };
+      var here = strip(window.location.pathname), there = strip(new URL(logo.href, window.location.href).pathname);
+      if (here !== there) return; // another page: let the link navigate
+      e.preventDefault();
+      window.scrollTo({ top: 0, left: 0, behavior: (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth" });
+      if (window.location.hash) history.replaceState(null, "", window.location.pathname + window.location.search);
+    });
+  }
+
   /* ---------- Current year in footer ---------- */
   var yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());

@@ -20,8 +20,8 @@ a GitHub Actions workflow — see **Now Playing (Spotify)** below.
 - The About portrait is `assets/about/portrait.jpg`. For any other image, save it in `assets/` and use `<img src="assets/your-file.jpg" alt="…">`
   (inside `.cs-cover` or `.about-grid__portrait`, `styles.css` already makes it fill the box).
   Always write a real `alt`.
-- The home page's "Selected Work" is a plain list of 4 entries (no thumbnails), all adapted from your Figma
-  presentation: **Address Scanner**, **Dynamic Island** and **Driver Profile** (Spoke, formerly Circuit) have a page each; **Other projects** is one page of snippets from projects without a full case study (not "smaller projects"): **Redesign: Edit stop view** and **Redesign: Menu** (Circuit), **Bill 2.0** (Lemon Energy), and **íon** (Work & Co).
+- The home page's "Selected Work" is a plain list of 7 entries (no thumbnails, no status column), all adapted from your Figma
+  presentation: **Address Scanner Feature** and **Dynamic Island Feature** (Spoke, formerly Circuit) have a page each (the Driver Profile page is archived in `archive/driver-profile/`); **App Main Menu**, **Edit Stop View** (Spoke), **Digital Electricity Bill** (Lemon Energy), **Íon Investments** (Work & Co) and **Nuconta Onboarding Flow** (Nubank) are "snippet" case studies, one page each, for projects without a full case study. They use the same layout as the other case pages (title, tags, lede, details, then sections) and are written from the Figma deck (`Archive`, `Cases w/ CRM` and `Lemon` pages) and the CV. The Driver Profile page is archived in `archive/driver-profile/`.
 - The home page has **no hero for now**: it opens on two big lines, "Hey, I'm Lorenza." / "UX Designer at Google." ("Google" links to google.com; it's the `<h1>`, `.intro` in `styles.css`), then
   the "Selected Work" list.
 - Earlier work that was removed is archived (not published) in `archive/`: `hero-variants/` (skate, game, colour-glow
@@ -157,11 +157,11 @@ Its media lives in `assets/address-scanner/` (~10 MB):
 The other pages use the same structure, with these extra layouts (all `cs2-*` classes in
 `styles.css`): phone video in a stage, stacked Dynamic Island strips, dark slide screenshots
 (`cs2-shot`), captioned phone pairs, a video playing inside a phone frame (íon) and a video with
-sound and controls (the Driver Profile pitch). Their pages, in order (each page's "Next project"
+sound and controls (the Driver Profile pitch, now archived). Their pages, in order (each page's "Next project"
 link follows this order): `case-study-address-scanner.html` → `case-study-dynamic-island.html` →
-`case-study-driver-profile.html` → `case-study-other-projects.html` (four projects on one page: it snaps from slide to slide, one project per screen, and each project's parts are a small carousel with arrows (and a counter), swipe and ← / → keys).
+`case-study-menu.html` → `case-study-edit-stop.html` → `case-study-bill.html` → `case-study-ion.html` → `case-study-nubank-onboarding.html` → back to Address Scanner. The old combined "Other projects" page is archived in `archive/other-projects/`.
 
-Where the media came from (all under `assets/<project>/`; the Bill 2.0 "After" phone is a scroll recording rendered from an export of the full-length bill screen in Figma, played inside the same phone mockup as the íon clip, `assets/device/phone-frame.webp`, with the same play/pause control): videos were matched to the deck by file
+Where the media came from (all under `assets/<project>/`; the íon monthly-report and check-up videos are the prototype recordings linked from the Figma slides (Google Drive), compressed with ffmpeg; the Nubank onboarding prototype is a single screen, so it is shown as a high-resolution image with a link to the Figma prototype; the Bill 2.0 "After" phone is a scroll recording rendered from an export of the full-length bill screen in Figma, played inside the same phone mockup as the íon clip, `assets/device/phone-frame.webp`, with the same play/pause control): videos were matched to the deck by file
 hash and compressed with ffmpeg; the mockups are renders of the deck's slides.
 ## The `/scripts` folder
 
