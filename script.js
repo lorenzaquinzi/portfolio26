@@ -299,3 +299,22 @@
     update();
   });
 })();
+
+
+/* Charts: report how many chart units one screen pixel covers (--u), so chart text keeps the same size on screen
+   whether the chart is drawn small (phones) or large. */
+(function () {
+  "use strict";
+  var svgs = document.querySelectorAll(".cs2-data svg");
+  if (!svgs.length) return;
+  function fit(svg) {
+    var vb = svg.viewBox && svg.viewBox.baseVal;
+    var w = svg.getBoundingClientRect().width;
+    if (vb && vb.width && w) svg.style.setProperty("--u", (vb.width / w).toFixed(3));
+  }
+  svgs.forEach(function (svg) {
+    fit(svg);
+    if ("ResizeObserver" in window) new ResizeObserver(function () { fit(svg); }).observe(svg);
+    else window.addEventListener("resize", function () { fit(svg); });
+  });
+})();

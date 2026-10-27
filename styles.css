@@ -968,23 +968,26 @@ ul { margin: 0; padding: 0; list-style: none; }
    leading series, three hairline guides and direct labels. Draws itself in once, unless reduced motion. */
 .cs2-data { margin: 0; align-self: center; width: 100%; }
 .cs2-data svg { display: block; width: 100%; height: auto; overflow: visible; }
-.cs2-data__cap { font-size: 12px; fill: var(--muted); }
-.cs2-data__tick { font-size: 11px; fill: var(--muted); opacity: 0.7; }
-.cs2-data__grid { stroke: var(--border); stroke-width: 1; stroke-dasharray: 2 5; }
-.cs2-data__base { stroke: var(--border); stroke-width: 1; }
+.cs2-data__cap { font-size: calc(14px * var(--u, 1)); fill: color-mix(in srgb, var(--fg) 82%, var(--bg)); dominant-baseline: hanging; } /* chart text: --u (script.js) keeps it the same size on screen at every width; dark enough to read */ /* chart text: --u (script.js) keeps it the same size on screen at every width */
+.cs2-data__tick { font-size: calc(13px * var(--u, 1)); fill: color-mix(in srgb, var(--fg) 82%, var(--bg)); }
+.cs2-data__grid { stroke: color-mix(in srgb, var(--fg) 22%, var(--bg)); stroke-width: calc(1px * var(--u, 1)); stroke-dasharray: 2 5; }
+.cs2-data__base { stroke: var(--border); stroke-width: calc(1px * var(--u, 1)); }
 .cs2-data__area { fill: url(#data-fade); }
-.cs2-data__line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.cs2-data__line { fill: none; stroke-width: calc(2px * var(--u, 1)); stroke-linejoin: round; stroke-linecap: round; }
 .cs2-data__line--android { stroke: var(--fg); }
-.cs2-data__line--ios { stroke: var(--muted); }
+.cs2-data__line--ios { stroke: color-mix(in srgb, var(--fg) 62%, var(--bg)); }
 .cs2-data__halo { opacity: 0.14; }
 .cs2-data__halo--android, .cs2-data__dot--android { fill: var(--fg); }
-.cs2-data__halo--ios, .cs2-data__dot--ios { fill: var(--muted); }
-.cs2-data__label { font-size: 14px; fill: var(--muted); }
+.cs2-data__halo--ios, .cs2-data__dot--ios { fill: color-mix(in srgb, var(--fg) 62%, var(--bg)); }
+.cs2-data__label { font-size: calc(15px * var(--u, 1)); fill: color-mix(in srgb, var(--fg) 82%, var(--bg));  transform: translateX(calc(22px * var(--u, 1))); }
 .cs2-data__label--android { fill: var(--fg); }
 .cs2-data__num { font-weight: 600; }
 .cs2-data__launchline { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 4; }
-.cs2-data__launchdot { fill: var(--bg); stroke: var(--fg); stroke-width: 1.5; }
-.cs2-data__launchlabel { font-size: 12px; font-weight: 500; fill: var(--fg); }
+.cs2-data__dot { r: calc(4px * var(--u, 1)); }
+.cs2-data__halo { r: calc(9px * var(--u, 1)); }
+.cs2-data__launchdot { r: calc(4px * var(--u, 1)); }
+.cs2-data__launchdot { fill: var(--fg); }
+.cs2-data__launchlabel { font-size: calc(14px * var(--u, 1)); font-weight: 500; fill: var(--fg); dominant-baseline: hanging; }
 
 .cs2-data__line { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .cs2-data__area, .cs2-data__end { opacity: 0; }
@@ -1247,7 +1250,7 @@ a[href], button:not(:disabled), summary, [role="button"] { cursor: pointer; }
 
 /* Bill 2.0: two small charts stacked (an indexed line and share bars); same quiet style as the Address Scanner chart */
 .cs2-datas { display: grid; gap: clamp(36px, 5vw, 64px); align-self: center; }
-.cs2-data__xtick { font-size: 11px; fill: var(--muted); opacity: 0.7; }
+.cs2-data__xtick { font-size: calc(13px * var(--u, 1)); fill: color-mix(in srgb, var(--fg) 82%, var(--bg)); }
 .cs2-bars__label { font-size: 14px; fill: var(--muted); }
 .cs2-bars__bar { fill: var(--muted); }
 .cs2-bars__bar--lead { fill: var(--fg); }
