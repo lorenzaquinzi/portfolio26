@@ -256,6 +256,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   justify-content: space-between;
   gap: 10px 28px;
   padding: 26px var(--gutter) 22px;
+  overflow: clip; /* the tilted video's corners must not hang below the nav's background, where nothing is there to blend against */
+  transition: background-color .25s ease;
+  background: var(--bg); /* gives the video logo's blend mode something to blend against (the nav is its own stacking context) */
 }
 
 .index-nav__logo {
@@ -272,6 +275,30 @@ ul { margin: 0; padding: 0; list-style: none; }
   background-color: currentColor;
   -webkit-mask: url("assets/logo/lolo-logo.svg") center / contain no-repeat;
   mask: url("assets/logo/lolo-logo.svg") center / contain no-repeat;
+}
+
+/* Video logo (test): the SVG mark above is the fallback and stays until the video can play (script.js adds .is-video-ready).
+   The clip has a white background, so blend it into the page and trim its empty margins. */
+.index-nav__logo--video { min-height: 55px; } /* the video's visible height, so the header doesn't jump when it takes over */
+.index-nav__video {
+  position: absolute;
+  opacity: 0;
+  display: block;
+  height: 87px;
+  width: auto;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+.index-nav__logo--video.is-video-ready .index-nav__mark { display: none; }
+.index-nav__logo--video.is-video-ready .index-nav__video {
+  position: static;
+  opacity: 1;
+  margin: -20px -30px -12px -24px;
+  transform: translateY(3px) rotate(10deg); /* the lettering sits a little above the clip's centre (nudge to the menu's optical middle) and climbs ~17° to the right (tilt it back toward the horizontal) */
+}
+:root[data-theme="dark"] .index-nav__video { filter: invert(1); mix-blend-mode: screen; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .index-nav__video { filter: invert(1); mix-blend-mode: screen; }
 }
 
 .index-nav__links {
@@ -423,7 +450,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .section--page {
   border-top: 0;
-  padding-top: clamp(24px, 5vw, 56px);
+  padding-top: calc(clamp(8px, 2vw, 16px) + 18px); /* same distance under the nav as the home page's "Selected Work" label */
 }
 
 .section__head {
@@ -431,12 +458,18 @@ ul { margin: 0; padding: 0; list-style: none; }
   justify-content: space-between;
   align-items: flex-end;
   gap: 24px;
-  margin-bottom: clamp(32px, 6vw, 56px);
+  margin-bottom: 29.5px; /* puts the divider ~31.5px under the label text, like the home page's work list */
   flex-wrap: wrap;
 }
 
 .section__title {
   font-size: clamp(28px, 5vw, 44px);
+}
+/* Page titles styled as the home page's "Selected Work" label (the .eyebrow class supplies the look; this resets the heading's own size, weight and leading) */
+.section__title.eyebrow {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: inherit;
 }
 
 .section__note {
@@ -559,11 +592,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   grid-template-columns: 0.8fr 1.2fr;
   gap: clamp(24px, 6vw, 64px);
   align-items: start;
+  border-top: 1px solid var(--border); /* divider under the title, like the lists on the home and Experience pages */
+  padding-top: clamp(18px, 2.4vw, 28px);
 }
 
 .about-grid__portrait {
   position: relative;
-  border-radius: var(--radius);
+  border-radius: 44px; /* rounder than the site's usual --radius */
   overflow: hidden;
   background: var(--placeholder);
   aspect-ratio: 1 / 1;

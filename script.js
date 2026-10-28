@@ -73,6 +73,14 @@
     });
   }
 
+  /* ---------- Logo video: swap in only once it can play; until then (or if it never loads) the SVG mark stays ---------- */
+  var logoVideo = document.querySelector(".index-nav__video");
+  if (logoVideo && logo) {
+    var showVideo = function () { logo.classList.add("is-video-ready"); };
+    if (logoVideo.readyState >= 2) showVideo();
+    else logoVideo.addEventListener("loadeddata", showVideo, { once: true });
+  }
+
   /* ---------- Current year in footer ---------- */
   var yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
