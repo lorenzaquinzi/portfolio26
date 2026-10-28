@@ -73,31 +73,12 @@
     });
   }
 
-  /* ---------- Logo video: swap in only once it can play; until then (or if it never loads) the SVG mark stays ----------
-     Every page is a fresh load, so the clip's position is saved as the page is left and picked up on the next page
-     (advanced by the time the load took), which keeps the loop running instead of restarting on each navigation. */
+  /* ---------- Logo video: swap in only once it can play; until then (or if it never loads) the SVG mark stays ---------- */
   var logoVideo = document.querySelector(".index-nav__video");
   if (logoVideo && logo) {
-    var POS_KEY = "lq-logo-video";
-    var savePos = function () {
-      try { sessionStorage.setItem(POS_KEY, JSON.stringify({ t: logoVideo.currentTime, at: Date.now() })); } catch (e) {}
-    };
-    window.addEventListener("pagehide", savePos);
-
     var showVideo = function () { logo.classList.add("is-video-ready"); };
-    var resume = function () {
-      var saved = null;
-      try { saved = JSON.parse(sessionStorage.getItem(POS_KEY)); } catch (e) {}
-      var gap = saved ? (Date.now() - saved.at) / 1000 : Infinity;
-      if (saved && gap >= 0 && gap < 10 && logoVideo.duration > 0) { // coming from another page of the site a moment ago
-        logoVideo.addEventListener("seeked", showVideo, { once: true });
-        logoVideo.currentTime = (saved.t + gap) % logoVideo.duration;
-      } else {
-        showVideo();
-      }
-    };
-    if (logoVideo.readyState >= 2) resume();
-    else logoVideo.addEventListener("loadeddata", resume, { once: true });
+    if (logoVideo.readyState >= 2) showVideo();
+    else logoVideo.addEventListener("loadeddata", showVideo, { once: true });
   }
 
   /* ---------- Current year in footer ---------- */
